@@ -1,26 +1,30 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, useRoutes} from 'react-router-dom';
+import Login from './components/Login';
+import PrivateRoute from './components/PrivateRoute';
+import MainRoute from './pages/MainRoute';
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
 
-function App() {
+const App: React.FC = () => {
+  const isAuthenticated = true; // Change this to your authentication logic
+  let routes = useRoutes([
+    { path: "/", element: <PrivateRoute authenticated={isAuthenticated}><MainRoute /></PrivateRoute> },
+    { path: "login", element: <Login /> },
+    // ...
+  ]);
+  return routes;
+};
+
+const AppWrapper = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   );
-}
+};
 
-export default App;
+export default AppWrapper;
+
