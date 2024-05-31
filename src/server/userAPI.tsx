@@ -1,10 +1,8 @@
-import React from "react";
 import axios from "axios";
 import { Posts, Filter } from "./types";
+import {url} from "./api";
 
-export const url = "https://localhost:7025/api/";
-
-  export async function getPosts( filter: Filter) {
+  export async function login( filter: Filter) {
     try {
       const { data, status } = await axios.post<Posts>(
         `${url}post`,

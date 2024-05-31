@@ -24,5 +24,4 @@ export type Post = {
   export type Filter = {
     page: number;
     pageCount: number;
-    isStart: Boolean
   }

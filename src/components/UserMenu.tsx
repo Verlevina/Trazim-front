@@ -11,10 +11,19 @@ import Tooltip from '@mui/material/Tooltip';
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/store';
+import { useDispatch } from 'react-redux';
+import SignIn from '../pages/SignIn';
 
 export default function AccountMenu() {
+  //redux
+  const user = useSelector((state: RootState)=> state.user);
+  const dispatch = useDispatch();
+  
+  //local state
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
+  const open: boolean = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -22,8 +31,10 @@ export default function AccountMenu() {
     setAnchorEl(null);
   };
   return (
+    user.isSignedIn?
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+        <React.Fragment>
         <Typography sx={{ minWidth: 100 }}>Contact</Typography>
         <Typography sx={{ minWidth: 100 }}>Profile</Typography>
         <Tooltip title="Account settings">
@@ -33,11 +44,12 @@ export default function AccountMenu() {
             sx={{ ml: 2 }}
             aria-controls={open ? 'account-menu' : undefined}
             aria-haspopup="true"
-            aria-expanded={open ? 'true' : undefined}
+            aria-expanded={open}
           >
             <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
           </IconButton>
         </Tooltip>
+        </React.Fragment>
       </Box>
       <Menu
         anchorEl={anchorEl}
@@ -100,6 +112,8 @@ export default function AccountMenu() {
           Logout
         </MenuItem>
       </Menu>
-    </React.Fragment>
+    </React.Fragment>  
+        : 
+        <SignIn/>
   );
 }

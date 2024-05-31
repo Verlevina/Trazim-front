@@ -7,41 +7,43 @@ import { Filter, Post } from '../server/types';
 
   const InfiniteScroll: React.FC = () => {
     const [posts, setPosts] = useState<Post[]>([]);
-    const [currentFilter, setCurrentFilter] = useState({page: 0, pageCount: 10, isStart: false});
-    const [isLoading, setIsLoading] = useState(false);
+    const page = useRef<number>(-1);
+    const isLoading = useRef<Boolean>(false);
+    const pageCount = 12;
     const sentinelRef = useRef<HTMLDivElement>(null);
-    const sentinelRefstart = useRef<HTMLDivElement>(null);
-    useEffect(() => {
-      loadMorePosts();
-    }, []);
+    // const sentinelRefstart = useRef<HTMLDivElement>(null);
 
     const loadMorePosts = async () => {
-      if(isLoading) return;
-      setIsLoading(true);
-      setCurrentFilter({...currentFilter, page: currentFilter.page + 1, isStart: false});
-      const newFullPosts = await getPosts(currentFilter); 
-      const newPosts = newFullPosts?.posts;
-      if(currentFilter.isStart) {
-        setPosts(prevPosts => [ ...(newPosts ?? []), ...prevPosts.slice(40)]);
-      } else {
-        setPosts(prevPosts => [ ...prevPosts.slice(-40), ...(newPosts ?? [])]);
-      }
-      setIsLoading(false);
+      if(isLoading.current) return;
+      isLoading.current = true;
+      page.current = page.current + 1;
+      const filter: Filter = {page: page.current, pageCount: pageCount};
+      getPosts(filter)
+        .then(res => {
+          setPosts(prevPosts => [ ...prevPosts, ...( res?.posts ?? [])]);
+        })
+        .finally(()=>{
+          isLoading.current = false;
+        });
+      // if(currentFilter.isStart) {
+      //   setPosts(prevPosts => [ ...(newPosts ?? []), ...prevPosts.slice(40)]);
+      // } else {
+      //}
     };
 
     const handleIntersection = (entries: IntersectionObserverEntry[]) => {
-      if(isLoading) return;
+      if(isLoading.current) return;
       if (entries[0].isIntersecting) {
-        loadMorePosts()
+        loadMorePosts();
       }
     };
 
-    const handleIntersectionStart = (entries: IntersectionObserverEntry[]) => {
-      if(isLoading) return;
-      if (entries[0].isIntersecting && currentFilter.page > 0) {
-        setCurrentFilter({...currentFilter, page: currentFilter.page - 1, isStart: true});
-      }
-    };
+    // const handleIntersectionStart = (entries: IntersectionObserverEntry[]) => {
+    //   if(isLoading) return;
+    //   if (entries[0].isIntersecting && currentFilter.page > 0) {
+    //     setCurrentFilter({...currentFilter, page: currentFilter.page - 1, isStart: true});
+    //   }
+    // };
   
     useEffect(() => {
       const options = {
@@ -50,28 +52,27 @@ import { Filter, Post } from '../server/types';
         threshold: 1.0
       };
       const sentineRefCurrent = sentinelRef.current;
-      const sentinelRefstartCurrent = sentinelRefstart.current;
+      //const sentinelRefstartCurrent = sentinelRefstart.current;
       const observer = new IntersectionObserver(handleIntersection, options);
-      const observerStart = new IntersectionObserver(handleIntersectionStart, options);
+      //const observerStart = new IntersectionObserver(handleIntersectionStart, options);
 
       if (sentineRefCurrent) {
         observer.observe(sentineRefCurrent);
       }
   
-      if (sentinelRefstartCurrent) {
-        observerStart.observe(sentinelRefstartCurrent);
-      }
-
-      return () => {
+      // if (sentinelRefstartCurrent) {
+      //   observerStart.observe(sentinelRefstartCurrent);
+      // }
+       return () => {
         if (sentineRefCurrent) {
           observer.unobserve(sentineRefCurrent);
         }
-        if (sentinelRefstartCurrent) {
-          observerStart.unobserve(sentinelRefstartCurrent);
-        }
+        // if (sentinelRefstartCurrent) {
+        //   observerStart.unobserve(sentinelRefstartCurrent);
+        // }
       };
     }, []);
-  
+
     return (
       <div>
        {/* {isLoading && currentFilter.isStart && <div>Loading...</div>} */}
@@ -83,7 +84,6 @@ import { Filter, Post } from '../server/types';
             </Grid>
           ))}
         </Grid>
-        {isLoading && !currentFilter.isStart && <div>Loading...</div>}
         <div ref={sentinelRef} style={{ height: '10px'}}>observer</div>
       </div>
     );
