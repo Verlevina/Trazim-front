@@ -25,7 +25,7 @@ const App: React.FC = () => {
     { path: "login", element: <Login /> },
     // ...
   ]);
-  return routes;
+  return  <AuthProvider> routes</AuthProvider>;
 };
 
 const AppWrapper = () => {

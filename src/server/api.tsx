@@ -7,7 +7,7 @@ export const url = "https://localhost:7025/api/";
   export async function getPosts( filter: Filter) {
     try {
       const { data, status } = await axios.post<Posts>(
-        `${url}post`,
+        `${url}post/search`,
         filter
       );
   
