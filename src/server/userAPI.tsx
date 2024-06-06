@@ -1,15 +1,21 @@
 import axios from "axios";
-import { Posts, Filter } from "./types";
-import {url} from "./api";
+import { url } from "./api";
+import { User, UserSinginRequest } from "./types";
 
-  export async function login( filter: Filter) {
+  export async function getCurrentUser() {
+    const { data, status } = await axios.get<User>(
+      `${url}Authenticate/getCurrentUser`
+    );
+    return data;
+  }
+
+  export async function login( user: UserSinginRequest) {
     try {
-      const { data, status } = await axios.post<Posts>(
-        `${url}post`,
-        filter
+      const { data, status } = await axios.post<User>(
+        `${url}Authenticate/login`,
+        user
       );
-  
-      console.log(JSON.stringify(data, null, 4));  
+      setJWTToken(data.token);
       return data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -20,4 +26,12 @@ import {url} from "./api";
         return null;
       }
     }
+  }
+
+  export async function setJWTToken(token : string) {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  }
+
+  export async function deleteAuthHeader() {
+    delete axios.defaults.headers.common["Authorization"];
   }

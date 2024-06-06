@@ -13,14 +13,19 @@ import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
-import { useDispatch } from 'react-redux';
 import SignIn from '../pages/SignIn';
+import { Link } from 'react-router-dom';
+import { logoutReducer } from "../store/user/user";
+import { deleteAuthHeader } from "../server/userAPI";
+import { useDispatch } from 'react-redux';
+import { Translation, TranslationKeys } from '../Translation/TranslationComponent';
+import PostAddIcon from '@mui/icons-material/PostAdd';
 
 export default function AccountMenu() {
   //redux
-  const user = useSelector((state: RootState)=> state.user);
-  const dispatch = useDispatch();
-  
+  const user = useSelector((state: RootState)=> state.user); 
+  const language = useSelector((state: RootState)=> state.language);
+  const dispatch = useDispatch(); 
   //local state
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open: boolean = Boolean(anchorEl);
@@ -30,15 +35,21 @@ export default function AccountMenu() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const handleLogout = () => {
+    deleteAuthHeader();
+    dispatch(logoutReducer());
+    handleClose();
+  }
+
   return (
     user.isSignedIn?
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
         <React.Fragment>
-        <Typography sx={{ minWidth: 100 }}>Contact</Typography>
-        <Typography sx={{ minWidth: 100 }}>Profile</Typography>
+        <Typography sx={{ minWidth: 100 }}><Link to={`/?userID=${user.id}`}>{Translation(TranslationKeys.MyPosts, language)}</Link></Typography>
+        <Typography sx={{ minWidth: 100 }}><Link to={`/profile`}>{Translation(TranslationKeys.Profile, language)}</Link></Typography>
         <Tooltip title="Account settings">
-          <IconButton
+          <IconButton 
             onClick={handleClick}
             size="small"
             sx={{ ml: 2 }}
@@ -46,7 +57,7 @@ export default function AccountMenu() {
             aria-haspopup="true"
             aria-expanded={open}
           >
-            <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+            <Avatar sx={{ width: 32, height: 32 }}   src={user?.pictureUrl??user.pictureUrl}>{user?.login[0]}</Avatar>
           </IconButton>
         </Tooltip>
         </React.Fragment>
@@ -90,7 +101,7 @@ export default function AccountMenu() {
           <Avatar /> Profile
         </MenuItem>
         <MenuItem onClick={handleClose}>
-          <Avatar /> My account
+          <Avatar><PostAddIcon/></Avatar> {Translation(TranslationKeys.CreateNewPost, language)}
         </MenuItem>
         <Divider />
         <MenuItem onClick={handleClose}>
@@ -105,7 +116,7 @@ export default function AccountMenu() {
           </ListItemIcon>
           Settings
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handleLogout}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
@@ -117,3 +128,7 @@ export default function AccountMenu() {
         <SignIn/>
   );
 }
+function dispatch(arg0: any) {
+  throw new Error('Function not implemented.');
+}
+

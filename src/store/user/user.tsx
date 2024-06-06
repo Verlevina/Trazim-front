@@ -1,12 +1,18 @@
 import {createSlice} from "@reduxjs/toolkit";
 
-interface UserState {
-  id: number,
-  token: string,
-  login: string,
-  languageId: number,
-  locationId: number,
-  isSignedIn: boolean,
+export interface UserState {
+  id: number;
+  name: string;
+  token:string;
+  email:string;
+  languageId: number;
+  locationId: number;
+  login: string;
+  pictureUrl: string;
+  surname: string;
+  telegram: string;
+  userRating: number;
+  isSignedIn: boolean;
 }
 
 const initialState: UserState = {
@@ -16,23 +22,31 @@ const initialState: UserState = {
   locationId: 0,
   login: "",
   token: "",
+  email: "",
+  name: "",
+  pictureUrl: "",
+  surname: "",
+  telegram: "",
+  userRating: 0,
 }
 
 const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    login: (state, action)=>{
+    loginReducer: (state, action)=>{
       state = action.payload;
       state.isSignedIn = true;
+      return { ...state };
     },
-    logout: (state) =>{
+    logoutReducer: (state) =>{
       state = initialState;
+      return { ...state };
     }
   }
 })
 
-export const {login, logout} = userSlice.actions;
+export const { loginReducer, logoutReducer } = userSlice.actions;
 export default userSlice.reducer;
 
 

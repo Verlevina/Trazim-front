@@ -12,8 +12,15 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useState } from 'react';
-import {Translation, TranslationKeys} from '../Translation/TranslationComponent';
+import { Translation, TranslationKeys} from '../Translation/TranslationComponent';
 import { Modal } from '@mui/material';
+import { login } from "../server/userAPI";
+import { UserSinginRequest } from "../server/types";
+import { useDispatch, useSelector } from 'react-redux';
+import { loginReducer } from "../store/user/user";
+import { setLanguageReducer } from '../store/language/language';
+import { LangugeArray } from '../constants/languages';
+import { RootState } from '../store/store';
 const containerStyle = {
   background: "white",
 }
@@ -22,7 +29,7 @@ function Copyright(props: any) {
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        Trazim
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -32,21 +39,59 @@ function Copyright(props: any) {
 
 export default function SignIn() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const [rememberMe, setRememberMe] = useState<boolean>(false);
+
+  const [errorMessage, setErrorMessage] = useState<String> ("");
+  const dispatch = useDispatch();
+  const language = useSelector((state: RootState)=> state.language);
+
+  const  handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    const user = {
+      email: (event.currentTarget.elements.namedItem('email') as HTMLInputElement).value,
+      password: (event.currentTarget.elements.namedItem('password') as HTMLInputElement).value
+    } as UserSinginRequest;
+    var userResponce = await login(user);
+    if(userResponce?.token != null) {
+      setIsOpen(false);
+      var userState = {
+        id: userResponce?.id,
+        email: userResponce.email,
+        isSignedIn: true,
+        languageId: userResponce.languageId,
+        locationId: userResponce.locationId,
+        login: userResponce.login,
+        name: userResponce.name,
+        pictureUrl: userResponce.pictureUrl,
+        surname: userResponce.surname,
+        telegram: userResponce.telegram,
+        token: userResponce.token,
+        userRating: userResponce.userRating
+      };
+      dispatch(loginReducer(userState));
+      dispatch(setLanguageReducer(LangugeArray[+userState.languageId]))
+      if ( rememberMe ) {
+        localStorage.setItem("token", userState.token);
+      }
+    }
+    else  {
+      var errorMessage = Translation(TranslationKeys.AuthorizationError, language);
+      setErrorMessage(errorMessage);
+    }
   };
+
   const handleOpenClick = (event: React.MouseEvent<HTMLElement>) => {
     setIsOpen(!isOpen);
   }
+
+  const handleRemembermecheckbox = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRememberMe(event.target.checked);
+  } 
+
   return (
     <React.Fragment>
       <Button onClick={handleOpenClick}>
-        {Translation(TranslationKeys.Login)}
+        {Translation(TranslationKeys.Login, language)}
       </Button>
       {isOpen ? 
         <Modal
@@ -69,9 +114,9 @@ export default function SignIn() {
                   <LockOutlinedIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                  {Translation(TranslationKeys.Authorization)}
+                  {Translation(TranslationKeys.Authorization, language)}
                 </Typography>
-                  <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                   <TextField
                     margin="normal"
                     required
@@ -93,26 +138,29 @@ export default function SignIn() {
                     autoComplete="current-password"
                   />
                   <FormControlLabel
-                    control={<Checkbox value="remember" color="primary" />}
-                    label={Translation(TranslationKeys.RememberMe)}
+                    control={<Checkbox onChange={handleRemembermecheckbox}  value={rememberMe}  color="primary" />}
+                    label={Translation(TranslationKeys.RememberMe, language)}
                   />
+                   <Typography component="p" variant="subtitle1">
+                    {errorMessage}
+                  </Typography>
                   <Button
                     type="submit"
                     fullWidth
                     variant="contained"
                     sx={{ mt: 3, mb: 2 }}
                   >
-                    {Translation(TranslationKeys.Enter)}
+                    {Translation(TranslationKeys.Enter, language)}
                   </Button>
                   <Grid container>
                     <Grid item xs>
                       <Link href="#" variant="body2">
-                        {Translation(TranslationKeys.ForgotPassword)}
+                        {Translation(TranslationKeys.ForgotPassword, language)}
                       </Link>
                     </Grid>
                     <Grid item>
                       <Link href="#" variant="body2">
-                        {Translation(TranslationKeys.DonthaveanaccountSignUp)}
+                        {Translation(TranslationKeys.DonthaveanaccountSignUp, language)}
                       </Link>
                     </Grid>
                   </Grid>

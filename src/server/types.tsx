@@ -3,8 +3,16 @@ import React from "react";
 export type User = {
     id: number;
     name: string;
-    isHonest: boolean;
     image: string;
+    token:string;
+    email:string;
+    languageId: string;
+    locationId: string;
+    login: string;
+    pictureUrl: string;
+    surname: string;
+    telegram: string;
+    userRating: number;
 }
 
 export type Post = {
@@ -22,6 +30,24 @@ export type Post = {
   }
 
   export type Filter = {
-    page: number;
-    pageCount: number;
+    id: number|null;
+    title: string|null;
+    originalLanguageId: number|null;
+    pictureExisting: boolean|null;
+    locationId: number|null;
+    isArchived: boolean|null;
+    userId: number|null;
+    
+    // Paging
+    pageNumber: number;
+    pageSize: number;
+   
+    // Ordering
+    orderBy: string|null;
+    orderDescending: boolean|null;
+  }
+
+  export type UserSinginRequest =  {
+    email: string;
+    password: string
   }
