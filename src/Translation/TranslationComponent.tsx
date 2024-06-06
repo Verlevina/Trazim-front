@@ -2,6 +2,8 @@ import React, { useContext, useEffect } from 'react';
 import { Languages } from '../constants/languages';
 import { CurrentLanguageContext } from '../App';
 
+export type TranslationFC = (value: TranslationKeys) => string;
+
 interface TranslationValues {
     [Languages.Ru]: String,
     [Languages.En]: String,
@@ -33,9 +35,9 @@ export const  translationValues: EnumDictionary<TranslationKeys, TranslationValu
     [TranslationKeys.MyPosts]: {
         [Languages.Ru]: "Мои объявления",
         [Languages.En]: "My posts",
-        [Languages.Srb]:"My posts",
-        [Languages.Mne]: "My posts",
-        [Languages.Bih]: "My posts",
+        [Languages.Srb]:"Моја саопштења",
+        [Languages.Mne]: "Moja saopštenja",
+        [Languages.Bih]: "Moja saopštenja",
     },
     [TranslationKeys.Welcome]: {
         [Languages.Ru]: "Добро пожаловать",
@@ -75,16 +77,16 @@ export const  translationValues: EnumDictionary<TranslationKeys, TranslationValu
     [TranslationKeys.RememberMe] : {
         [Languages.Ru]: "Запомнить",
         [Languages.En]: "Remember me",
-        [Languages.Srb]: "Remember me",
-        [Languages.Mne]: "Remember me",
-        [Languages.Bih]: "Remember me",
+        [Languages.Srb]: "Сети ме се",
+        [Languages.Mne]: "Seti me se",
+        [Languages.Bih]: "Seti me se",
     },   
     [TranslationKeys.ForgotPassword] : {
         [Languages.Ru]: "Забыли пароль?",
         [Languages.En]: "Forgot password?",
-        [Languages.Srb]: "Forgot password?",
-        [Languages.Mne]: "Forgot password?",
-        [Languages.Bih]: "Forgot password?",
+        [Languages.Srb]: "Заборавили сте лозинку?",
+        [Languages.Mne]: "Zaboravili ste lozinku?",
+        [Languages.Bih]: "Zaboravili ste lozinku?",
     },   
     [TranslationKeys.DonthaveanaccountSignUp] : {
         [Languages.Ru]: "Ещё не зарегистрированы? Регистрация.",
@@ -94,25 +96,25 @@ export const  translationValues: EnumDictionary<TranslationKeys, TranslationValu
         [Languages.Bih]: "Don`t have an account? SignUp",
     },   
     [TranslationKeys.AuthorizationError] : {
-        [Languages.Ru]: "Неверный email или пароль",
+        [Languages.Ru]: "Неверный пароль",
         [Languages.En]: "Wrong password",
-        [Languages.Srb]: "Wrong password",
-        [Languages.Mne]: "Wrong password",
-        [Languages.Bih]: "Wrong password",
+        [Languages.Srb]: "Погрешна лозинка",
+        [Languages.Mne]: "Pogrešna lozinka",
+        [Languages.Bih]: "Pogrešna lozinka",
     },   
     [TranslationKeys.CreateNewPost] : {
         [Languages.Ru]: "Создать объявление",
         [Languages.En]: "Create post",
-        [Languages.Srb]: "Create post",
-        [Languages.Mne]: "Create post",
-        [Languages.Bih]: "Create post",
+        [Languages.Srb]: "Направите оглаc",
+        [Languages.Mne]: "Napravite oglas",
+        [Languages.Bih]: "Napravite oglas",
     },   
     [TranslationKeys.Profile] : {
         [Languages.Ru]: "Профиль пользователя",
         [Languages.En]: "Profile",
-        [Languages.Srb]: "Profile",
-        [Languages.Mne]: "Profile",
-        [Languages.Bih]: "Profile",
+        [Languages.Srb]: "Профил корисника",
+        [Languages.Mne]: "Profil korisnika",
+        [Languages.Bih]: "Profil korisnika",
     }
 }
 
@@ -152,5 +154,5 @@ export const TranslationWithLanguage = (currentLanguage: string) => {
         catch {
             return value.toString();
         }
-    }
+    } as TranslationFC;
 }

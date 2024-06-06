@@ -1,10 +1,10 @@
-import {createSlice} from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 export interface UserState {
   id: number;
   name: string;
-  token:string;
-  email:string;
+  token: string;
+  email: string;
   languageId: number;
   locationId: number;
   login: string;
@@ -28,26 +28,23 @@ const initialState: UserState = {
   surname: "",
   telegram: "",
   userRating: 0,
-}
+};
 
 const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    loginReducer: (state, action)=>{
+    loginReducer: (state, action) => {
       state = action.payload;
       state.isSignedIn = true;
       return { ...state };
     },
-    logoutReducer: (state) =>{
+    logoutReducer: (state) => {
       state = initialState;
       return { ...state };
-    }
-  }
-})
+    },
+  },
+});
 
 export const { loginReducer, logoutReducer } = userSlice.actions;
 export default userSlice.reducer;
-
-
-  
