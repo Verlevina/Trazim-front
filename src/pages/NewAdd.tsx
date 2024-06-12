@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useRef } from "react";
 import { styled } from "@mui/material/styles";
 import Stack from "@mui/material/Stack";
 import Stepper from "@mui/material/Stepper";
@@ -22,6 +23,7 @@ import TextareaForCreatePost, {
   UnstyledInputBasic,
 } from "../components/TextareaForCreatePost";
 import ImagesUpload from "../components/ImagesUpload";
+import { NewPost } from "../types";
 
 type StepType = {
   stepNumber: number;
@@ -81,13 +83,12 @@ const ColorlibStepIconRoot = styled("div")<{
 
 export default function CustomizedSteppers() {
   const [activeStep, setActiveStep] = React.useState<number>(0);
-  const [post, setPost] = React.useState<Post>({
-    id: 0,
+  const postRef = useRef<NewPost>({
     title: "",
     description: "",
-    owner: null,
     pictures: [],
   });
+  const post = postRef.current;
   const translationContext: TranslationFC = React.useContext(
     CurrentLanguageContext
   );
@@ -104,11 +105,14 @@ export default function CustomizedSteppers() {
       setActiveStep(activeStep - 1);
     }
   };
+  const createPost =()=>{
+    
+  }
   const getButtons = (index: number, length: number) => (
     <div>
       <Button
         variant="contained"
-        onClick={nextStepHandler}
+        onClick={index === length ? createPost : nextStepHandler}
         sx={{ mt: 1, mr: 1 }}
       >
         {index === length ? "Finish" : "Continue"}
@@ -129,8 +133,8 @@ export default function CustomizedSteppers() {
       icon: <SettingsIcon />,
       stepComponent: (
         <Grid>
-          <UnstyledInputBasic post={post} setPost={setPost} />
-          <TextareaForCreatePost post={post} setPost={setPost} />
+          <UnstyledInputBasic post={post} />
+          <TextareaForCreatePost post={post} />
           {getButtons(1, 3)}
         </Grid>
       ),
@@ -139,9 +143,12 @@ export default function CustomizedSteppers() {
       title: translationContext(TranslationKeys.AddPhoto),
       stepNumber: 2,
       icon: <AddPhotoAlternateOutlinedIcon />,
-      stepComponent: <Grid>
-        <ImagesUpload/>
-        {getButtons(2, 3)}</Grid>,
+      stepComponent: (
+        <Grid>
+          <ImagesUpload post = {post}/>
+          {getButtons(2, 3)}
+        </Grid>
+      ),
     },
     {
       title: translationContext(TranslationKeys.AddLocation),

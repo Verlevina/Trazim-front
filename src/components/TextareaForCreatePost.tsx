@@ -1,14 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactQuill from "react-quill";
 import { Post } from "../server/types";
 import "react-quill/dist/quill.snow.css";
 import { InputProps, styled, Input as BaseInput } from "@mui/material";
+import { NewPost } from "../types";
+interface InputGroupProps {
+  post: NewPost;
+}
 
-type TextareaType = {
-  post: Post;
-  setPost: React.Dispatch<React.SetStateAction<Post>>;
-};
-export default function TextareaForCreatePost({ post, setPost }: TextareaType) {
+export default function TextareaForCreatePost({ post }: InputGroupProps) {
+  const [description, setDescription] = useState<string>(post.description);
   const myColors = [
     "#EF9A9A",
     "#F48FB1",
@@ -78,7 +79,8 @@ export default function TextareaForCreatePost({ post, setPost }: TextareaType) {
   ];
 
   const handleProcedureContentChange = (content: any) => {
-    setPost({ ...post, description: content });
+    setDescription(content);
+    post.description= content;
   };
   return (
     <>
@@ -87,7 +89,7 @@ export default function TextareaForCreatePost({ post, setPost }: TextareaType) {
         theme="snow"
         modules={modules}
         formats={formats}
-        value={post.description}
+        value={description}
         onChange={handleProcedureContentChange}
       />
     </>
@@ -101,14 +103,18 @@ const Input = React.forwardRef(function CustomInput(
   return <BaseInput slots={{ input: InputElement }} {...props} ref={ref} />;
 });
 
-export function UnstyledInputBasic({ post, setPost }: TextareaType) {
+export function UnstyledInputBasic({ post }: InputGroupProps) {
+  const [title, setTitle] = useState(post.title);
   return (
     <Input
       aria-label="Demo input"
       placeholder="Type something…"
-      value={post.title}
+      value={title}
       onChange={(event) => {
-        setPost({ ...post, title: event.target.value });
+        const title = event.target.value;
+        setTitle(title);
+
+        post.title = title;
       }}
     />
   );

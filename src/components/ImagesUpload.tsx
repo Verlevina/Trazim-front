@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import { ImageList, ImageListItem } from "@mui/material";
+import { ImageType, NewPost } from "../types";
+import { Post } from "../server/types";
 
-interface IImage {
-  fileName: string;
-  file: File;
-  image: string;
-  row: number;
-  column: number;
+interface InputGroupProps {
+  post: NewPost;
 }
 
 function srcset(image: string, size: number, rows = 1, cols = 1) {
@@ -18,8 +16,8 @@ function srcset(image: string, size: number, rows = 1, cols = 1) {
   };
 }
 
-const ImagesUpload: React.FC = () => {
-  const [selectedImages, setSelectedImages] = useState<Array<IImage>>([]);
+function ImagesUpload({ post }: InputGroupProps) {
+  const [selectedImages, setSelectedImages] = useState<Array<ImageType>>(post.pictures);
   const [message, setMessage] = useState<Array<string>>([]);
 
   //   useEffect(() => {
@@ -27,10 +25,9 @@ const ImagesUpload: React.FC = () => {
   //       setImageInfos(response.data);
   //     });
   //   }, []);
-
   const selectImages = (event: React.ChangeEvent<HTMLInputElement>) => {
     let files = event.target.files;
-    let newSelectedImages: Array<IImage> = [];
+    let newSelectedImages: Array<ImageType> = [];
 
     if (files) {
       for (let i = 0; i < files.length; i++) {
@@ -43,7 +40,9 @@ const ImagesUpload: React.FC = () => {
           column: 1,
         });
       }
-      setSelectedImages([...newSelectedImages, ...selectedImages]);
+      const pictures = [...newSelectedImages, ...selectedImages];
+      setSelectedImages(pictures);
+      post.pictures = pictures;
       setMessage([]);
     }
   };
@@ -65,31 +64,25 @@ const ImagesUpload: React.FC = () => {
   //       .catch((err: any) => {
   //         _progressInfos[idx].percentage = 0;
   //         setProgressInfos(_progressInfos);
-
   //         let msg = file.name + ": Failed!";
   //         if (err.response && err.response.data && err.response.data.message) {
   //           msg += " " + err.response.data.message;
   //         }
-
   //         setMessage((prevMessage) => [
   //           ...prevMessage,
   //           msg
   //         ]);
   //       });
   //   };
-
   const uploadImages = () => {
     if (selectedImages != null) {
       // const uploadPromises = files.map((file, i) => upload(i, file));
-
       //   Promise.all(uploadPromises)
       //     .then(() => UploadService.getFiles())
       //     .then((images) => {
       //    setImageInfos(images.data);
       // });
-
       //  setImageInfos(_progressInfos);
-
       setMessage([]);
     }
   };
@@ -151,6 +144,6 @@ const ImagesUpload: React.FC = () => {
       )}
     </div>
   );
-};
+}
 
 export default ImagesUpload;
