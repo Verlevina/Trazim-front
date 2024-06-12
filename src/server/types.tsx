@@ -19,7 +19,7 @@ export type Post = {
     id: number;
     title: string;
     description: string;
-    owner: User;
+    owner: User | null;
     pictures: string[];
   };
 

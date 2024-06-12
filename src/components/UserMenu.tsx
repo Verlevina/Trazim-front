@@ -25,6 +25,29 @@ import {
 import PostAddIcon from "@mui/icons-material/PostAdd";
 import { CurrentLanguageContext } from "../App";
 
+const menuStyle  = {
+  overflow: "visible",
+  filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+  mt: 1.5,
+  "& .MuiAvatar-root": {
+    width: 32,
+    height: 32,
+    ml: -0.5,
+    mr: 1,
+  },
+  "&::before": {
+    content: '""',
+    display: "block",
+    position: "absolute",
+    top: 0,
+    right: 14,
+    width: 10,
+    height: 10,
+    bgcolor: "background.paper",
+    transform: "translateY(-50%) rotate(45deg)",
+    zIndex: 0,
+  },
+}
 export default function AccountMenu() {
   //redux
   const user = useSelector((state: RootState) => state.user);
@@ -84,29 +107,7 @@ export default function AccountMenu() {
         onClick={handleClose}
         PaperProps={{
           elevation: 0,
-          sx: {
-            overflow: "visible",
-            filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-            mt: 1.5,
-            "& .MuiAvatar-root": {
-              width: 32,
-              height: 32,
-              ml: -0.5,
-              mr: 1,
-            },
-            "&::before": {
-              content: '""',
-              display: "block",
-              position: "absolute",
-              top: 0,
-              right: 14,
-              width: 10,
-              height: 10,
-              bgcolor: "background.paper",
-              transform: "translateY(-50%) rotate(45deg)",
-              zIndex: 0,
-            },
-          },
+          sx: menuStyle
         }}
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
@@ -121,15 +122,11 @@ export default function AccountMenu() {
           <Avatar>
             <PostAddIcon />
           </Avatar>{" "}
-          {translationContext(TranslationKeys.CreateNewPost)}
+          <Link to={`/newAdd`}>
+            {translationContext(TranslationKeys.CreateNewPost)}
+          </Link>
         </MenuItem>
         <Divider />
-        <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-            <PersonAdd fontSize="small" />
-          </ListItemIcon>
-          Add another account
-        </MenuItem>
         <MenuItem onClick={handleClose}>
           <ListItemIcon>
             <Settings fontSize="small" />

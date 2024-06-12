@@ -28,14 +28,17 @@ export enum TranslationKeys {
     AuthorizationError,
     CreateNewPost,
     MyPosts,
-    Profile
+    Profile,
+    AddMainInfo,
+    AddPhoto,
+    AddLocation
 }
 
 export const  translationValues: EnumDictionary<TranslationKeys, TranslationValues> = {
     [TranslationKeys.MyPosts]: {
         [Languages.Ru]: "Мои объявления",
         [Languages.En]: "My posts",
-        [Languages.Srb]:"Моја саопштења",
+        [Languages.Srb]: "Моја саопштења",
         [Languages.Mne]: "Moja saopštenja",
         [Languages.Bih]: "Moja saopštenja",
     },
@@ -60,62 +63,83 @@ export const  translationValues: EnumDictionary<TranslationKeys, TranslationValu
         [Languages.Mne]: "Ovlašćenje",
         [Languages.Bih]: "Ovlašćenje",
     },
-    [TranslationKeys.InputLogin]:{
+    [TranslationKeys.InputLogin]: {
         [Languages.Ru]: "Логин",
         [Languages.En]: "Login",
         [Languages.Srb]: "Login",
         [Languages.Mne]: "Login",
         [Languages.Bih]: "Login",
     },
-    [TranslationKeys.Enter] : {
+    [TranslationKeys.Enter]: {
         [Languages.Ru]: "Войти",
         [Languages.En]: "Enter",
         [Languages.Srb]: "Ући",
         [Languages.Mne]: "Ući",
         [Languages.Bih]: "Ući",
     },
-    [TranslationKeys.RememberMe] : {
+    [TranslationKeys.RememberMe]: {
         [Languages.Ru]: "Запомнить",
         [Languages.En]: "Remember me",
         [Languages.Srb]: "Сети ме се",
         [Languages.Mne]: "Seti me se",
         [Languages.Bih]: "Seti me se",
-    },   
-    [TranslationKeys.ForgotPassword] : {
+    },
+    [TranslationKeys.ForgotPassword]: {
         [Languages.Ru]: "Забыли пароль?",
         [Languages.En]: "Forgot password?",
         [Languages.Srb]: "Заборавили сте лозинку?",
         [Languages.Mne]: "Zaboravili ste lozinku?",
         [Languages.Bih]: "Zaboravili ste lozinku?",
-    },   
-    [TranslationKeys.DonthaveanaccountSignUp] : {
+    },
+    [TranslationKeys.DonthaveanaccountSignUp]: {
         [Languages.Ru]: "Ещё не зарегистрированы? Регистрация.",
         [Languages.En]: "Don`t have an account? SignUp",
         [Languages.Srb]: "Don`t have an account? SignUp",
         [Languages.Mne]: "Don`t have an account? SignUp",
         [Languages.Bih]: "Don`t have an account? SignUp",
-    },   
-    [TranslationKeys.AuthorizationError] : {
+    },
+    [TranslationKeys.AuthorizationError]: {
         [Languages.Ru]: "Неверный пароль",
         [Languages.En]: "Wrong password",
         [Languages.Srb]: "Погрешна лозинка",
         [Languages.Mne]: "Pogrešna lozinka",
         [Languages.Bih]: "Pogrešna lozinka",
-    },   
-    [TranslationKeys.CreateNewPost] : {
+    },
+    [TranslationKeys.CreateNewPost]: {
         [Languages.Ru]: "Создать объявление",
         [Languages.En]: "Create post",
         [Languages.Srb]: "Направите оглаc",
         [Languages.Mne]: "Napravite oglas",
         [Languages.Bih]: "Napravite oglas",
-    },   
-    [TranslationKeys.Profile] : {
+    },
+    [TranslationKeys.Profile]: {
         [Languages.Ru]: "Профиль пользователя",
         [Languages.En]: "Profile",
         [Languages.Srb]: "Профил корисника",
         [Languages.Mne]: "Profil korisnika",
         [Languages.Bih]: "Profil korisnika",
-    }
+    },
+    [TranslationKeys.AddMainInfo]: {
+        [Languages.Ru]: "Главная информация",
+        [Languages.En]: "Main info",
+        [Languages.Srb]: "Главне информације",
+        [Languages.Mne]: "Glavne informacije",
+        [Languages.Bih]: "Glavne informacije",
+    },
+    [TranslationKeys.AddPhoto]: {
+        [Languages.Ru]: "Добавить фото",
+        [Languages.En]: "Add image",
+        [Languages.Srb]: "Додај слику",
+        [Languages.Mne]: "Dodaj sliku",
+        [Languages.Bih]: "Dodaj sliku",
+    },
+    [TranslationKeys.AddLocation]: {
+        [Languages.Ru]: "Локация",
+        [Languages.En]: "Локация",
+        [Languages.Srb]: "Локация",
+        [Languages.Mne]: "Локация",
+        [Languages.Bih]: "Локация",
+    },
 }
 
 export const Translation = (value: TranslationKeys, currentLanguage: string) => {
