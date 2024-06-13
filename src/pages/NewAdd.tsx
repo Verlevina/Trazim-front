@@ -18,12 +18,12 @@ import {
 } from "../Translation/TranslationComponent";
 import { CurrentLanguageContext } from "../App";
 import { Button, Grid } from "@mui/material";
-import { Post } from "../server/types";
 import TextareaForCreatePost, {
   UnstyledInputBasic,
 } from "../components/TextareaForCreatePost";
 import ImagesUpload from "../components/ImagesUpload";
 import { NewPost } from "../types";
+import { addPost } from "../server/api";
 
 type StepType = {
   stepNumber: number;
@@ -105,18 +105,26 @@ export default function CustomizedSteppers() {
       setActiveStep(activeStep - 1);
     }
   };
-  const createPost =()=>{
-    
-  }
+  const createPost = async () => {
+    debugger;
+    await addPost(post);
+  };
+
   const getButtons = (index: number, length: number) => (
     <div>
-      <Button
-        variant="contained"
-        onClick={index === length ? createPost : nextStepHandler}
-        sx={{ mt: 1, mr: 1 }}
-      >
-        {index === length ? "Finish" : "Continue"}
-      </Button>
+      {index !== length ? (
+        <Button
+          variant="contained"
+          onClick={nextStepHandler}
+          sx={{ mt: 1, mr: 1 }}
+        >
+          Continue
+        </Button>
+      ) : (
+        <Button variant="contained" onClick={createPost} sx={{ mt: 1, mr: 1 }}>
+          Finish
+        </Button>
+      )}
       <Button
         disabled={index === 0}
         onClick={previosStepHandler}
@@ -145,7 +153,7 @@ export default function CustomizedSteppers() {
       icon: <AddPhotoAlternateOutlinedIcon />,
       stepComponent: (
         <Grid>
-          <ImagesUpload post = {post}/>
+          <ImagesUpload post={post} />
           {getButtons(2, 3)}
         </Grid>
       ),
