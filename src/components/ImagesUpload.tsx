@@ -17,14 +17,11 @@ function srcset(image: string, size: number, rows = 1, cols = 1) {
 }
 
 function ImagesUpload({ post }: InputGroupProps) {
-  const [selectedImages, setSelectedImages] = useState<Array<ImageType>>(post.pictures);
+  const [selectedImages, setSelectedImages] = useState<Array<ImageType>>(
+    post.pictures
+  );
   const [message, setMessage] = useState<Array<string>>([]);
 
-  //   useEffect(() => {
-  //     UploadService.getFiles().then((response) => {
-  //       setImageInfos(response.data);
-  //     });
-  //   }, []);
   const selectImages = (event: React.ChangeEvent<HTMLInputElement>) => {
     let files = event.target.files;
     let newSelectedImages: Array<ImageType> = [];
@@ -47,46 +44,6 @@ function ImagesUpload({ post }: InputGroupProps) {
     }
   };
 
-  //   const upload = (idx: number, file: File) => {
-  //     let _progressInfos = [...progressInfosRef.current];
-  //     return UploadService.upload(file, (event: React.ChangeEvent<HTMLInputElement>) => {
-  //       _progressInfos[idx].percentage = Math.round(
-  //         (100 * event.loaded) / event.total
-  //       );
-  //       setProgressInfos(_progressInfos);
-  //     })
-  //       .then(() => {
-  //         setMessage((prevMessage) => [
-  //           ...prevMessage,
-  //           file.name + ": Successful!"
-  //         ]);
-  //       })
-  //       .catch((err: any) => {
-  //         _progressInfos[idx].percentage = 0;
-  //         setProgressInfos(_progressInfos);
-  //         let msg = file.name + ": Failed!";
-  //         if (err.response && err.response.data && err.response.data.message) {
-  //           msg += " " + err.response.data.message;
-  //         }
-  //         setMessage((prevMessage) => [
-  //           ...prevMessage,
-  //           msg
-  //         ]);
-  //       });
-  //   };
-  const uploadImages = () => {
-    if (selectedImages != null) {
-      // const uploadPromises = files.map((file, i) => upload(i, file));
-      //   Promise.all(uploadPromises)
-      //     .then(() => UploadService.getFiles())
-      //     .then((images) => {
-      //    setImageInfos(images.data);
-      // });
-      //  setImageInfos(_progressInfos);
-      setMessage([]);
-    }
-  };
-
   return (
     <div>
       <div className="row my-3">
@@ -100,20 +57,10 @@ function ImagesUpload({ post }: InputGroupProps) {
             />
           </label>
         </div>
-
-        <div className="col-4">
-          <button
-            className="btn btn-success btn-sm"
-            disabled={!selectedImages}
-            onClick={uploadImages}
-          >
-            Upload
-          </button>
-        </div>
       </div>
       {selectedImages && (
         <ImageList
-          sx={{ width: 500, height: 450 }}
+          sx={{ height: 370, overflow: "auto" }}
           variant="quilted"
           cols={4}
           rowHeight={121}

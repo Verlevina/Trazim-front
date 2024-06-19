@@ -8,7 +8,6 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Tooltip from "@mui/material/Tooltip";
-import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import { useSelector } from "react-redux";
@@ -24,8 +23,9 @@ import {
 } from "../Translation/TranslationComponent";
 import PostAddIcon from "@mui/icons-material/PostAdd";
 import { CurrentLanguageContext } from "../App";
+import { AddPostButton } from "./AddPost";
 
-const menuStyle  = {
+const menuStyle = {
   overflow: "visible",
   filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
   mt: 1.5,
@@ -47,7 +47,7 @@ const menuStyle  = {
     transform: "translateY(-50%) rotate(45deg)",
     zIndex: 0,
   },
-}
+};
 export default function AccountMenu() {
   //redux
   const user = useSelector((state: RootState) => state.user);
@@ -107,7 +107,7 @@ export default function AccountMenu() {
         onClick={handleClose}
         PaperProps={{
           elevation: 0,
-          sx: menuStyle
+          sx: menuStyle,
         }}
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
@@ -122,9 +122,7 @@ export default function AccountMenu() {
           <Avatar>
             <PostAddIcon />
           </Avatar>{" "}
-          <Link to={`/newAdd`}>
-            {translationContext(TranslationKeys.CreateNewPost)}
-          </Link>
+          <AddPostButton />
         </MenuItem>
         <Divider />
         <MenuItem onClick={handleClose}>

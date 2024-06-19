@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import CardAddItem from './CardAddItem';
 import { Grid } from '@mui/material';
-import { getPosts } from '../server/api';
+import { getPosts } from '../server/userAPI';
 import { Filter, Post } from '../server/types';
 import { useLocation } from 'react-router-dom';
 

@@ -19,7 +19,7 @@ export type Post = {
     title: string;
     description: string;
     owner: User | null;
-    pictures: string[];
+    pictureUrls: string[];
   };
 
   export type Posts = {

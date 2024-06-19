@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import "/node_modules/flag-icons/css/flag-icons.min.css";
-import { BrowserRouter, useRoutes } from "react-router-dom";
+import { BrowserRouter, RouteProps, useParams, useRoutes } from "react-router-dom";
 import { Container, CssBaseline } from "@mui/material";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
@@ -18,6 +18,8 @@ import {
 import Header from "./components/Header";
 import Profile from "./pages/Profile";
 import NewAdd from "./pages/NewAdd";
+import AddPost from "./components/AddPost";
+import PostDetails from "./pages/PostDetails";
 
 export const CurrentLanguageContext = React.createContext<TranslationFC>(
   (value) => ""
@@ -29,6 +31,11 @@ const App: React.FC = () => {
     { path: "/login", element: <Login /> },
     { path: "/profile", element: <Profile /> },
     { path: "/newAdd", element: <NewAdd /> },
+    {
+      path: "/post/:id",
+      element:  <PostDetails />
+    },
+
     // ...
   ]);
   return routes;
@@ -46,6 +53,7 @@ const AppWrapper = () => {
           <CssBaseline />
           <Container style={{ margin: "20px" }}>
             <App />
+            <AddPost />
           </Container>
         </AuthWrapper>
       </BrowserRouter>

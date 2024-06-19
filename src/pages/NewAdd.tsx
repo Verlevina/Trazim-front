@@ -23,7 +23,10 @@ import TextareaForCreatePost, {
 } from "../components/TextareaForCreatePost";
 import ImagesUpload from "../components/ImagesUpload";
 import { NewPost } from "../types";
-import { addPost } from "../server/api";
+import { addPost } from "../server/userAPI";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { toggleModal } from "../store/newPost/newPost";
 
 type StepType = {
   stepNumber: number;
@@ -88,7 +91,14 @@ export default function CustomizedSteppers() {
     description: "",
     pictures: [],
   });
+  const navigate = useNavigate();
   const post = postRef.current;
+  const dispatch = useDispatch();
+
+  const handleClose = () => {
+    dispatch(toggleModal(false));
+  };
+
   const translationContext: TranslationFC = React.useContext(
     CurrentLanguageContext
   );
@@ -106,8 +116,10 @@ export default function CustomizedSteppers() {
     }
   };
   const createPost = async () => {
+    const id = await addPost(post);
     debugger;
-    await addPost(post);
+    navigate(`/post/${id}`);
+    handleClose();
   };
 
   const getButtons = (index: number, length: number) => (
@@ -140,11 +152,11 @@ export default function CustomizedSteppers() {
       stepNumber: 1,
       icon: <SettingsIcon />,
       stepComponent: (
-        <Grid>
+        <React.Fragment>
           <UnstyledInputBasic post={post} />
           <TextareaForCreatePost post={post} />
           {getButtons(1, 3)}
-        </Grid>
+        </React.Fragment>
       ),
     },
     {
@@ -181,7 +193,16 @@ export default function CustomizedSteppers() {
     );
   }
   return (
-    <Stack sx={{ width: "100%" }} spacing={4}>
+    <Grid
+      sx={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+      }}
+      spacing={4}
+      direction={"column"}
+    >
       <Stepper
         alternativeLabel
         activeStep={activeStep}
@@ -198,7 +219,7 @@ export default function CustomizedSteppers() {
           </Step>
         ))}
       </Stepper>
-      <Grid>
+      <Grid sx={{ display: "flex", flexDirection: "column", flexGrow: 4 }}>
         {activeStep === 0 ? (
           <React.Fragment>{steps[0].stepComponent}</React.Fragment>
         ) : activeStep === 1 ? (
@@ -207,6 +228,6 @@ export default function CustomizedSteppers() {
           <React.Fragment>{steps[2].stepComponent}</React.Fragment>
         )}
       </Grid>
-    </Stack>
+    </Grid>
   );
 }
