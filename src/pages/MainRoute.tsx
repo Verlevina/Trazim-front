@@ -1,9 +1,7 @@
-import MainData from '../components/MainData';
+import MainData from "../components/MainData";
 
 const MainRoute: React.FC = () => {
-    return <>
-        <MainData/>
-    </>;
-  };
+  return <MainData />;
+};
 
 export default MainRoute;

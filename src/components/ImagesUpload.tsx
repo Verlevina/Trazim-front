@@ -110,7 +110,7 @@ interface InputImageGroupProps {
 
 export function ImageUpload({ user, name }: InputImageGroupProps) {
   const [selectedImage, setSelectedImage] = useState<ImageType | null>(user.picture);
-  const [message, setMessage] = useState<Array<string>>([]);
+  const [message] = useState<Array<string>>([]);
   const uploadRef = useRef<HTMLInputElement>(null);
   const onUploadButtonClick = () => {
     uploadRef.current?.click();

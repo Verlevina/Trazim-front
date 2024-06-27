@@ -13,9 +13,7 @@ export const globalUrl = "https://localhost:7025";
 
 export const url = `${globalUrl}/api/`;
 export async function getCurrentUser() {
-  const { data, status } = await axios.get<User>(
-    `${url}Authenticate/getCurrentUser`
-  );
+  const { data } = await axios.get<User>(`${url}Authenticate/getCurrentUser`);
   return data;
 }
 
@@ -51,10 +49,7 @@ export async function createUserRequest(user: CreateUserRequest) {
 export async function login(user: UserSinginRequest) {
   try {
     user.password = hidePassword(user.password);
-    const { data, status } = await axios.post<User>(
-      `${url}Authenticate/login`,
-      user
-    );
+    const { data } = await axios.post<User>(`${url}Authenticate/login`, user);
     setJWTToken(data.token);
     return data;
   } catch (error) {
@@ -93,7 +88,7 @@ export async function getPosts(filter: Filter) {
 
 export async function addPost(post: NewPost) {
   let data = new FormData();
-  const _ = post.pictures.map((pic) => {
+  post.pictures.map((pic) => {
     return data.append(`file-${pic.fileName}`, pic.file, pic.fileName);
   });
   data.append("title", post.title);

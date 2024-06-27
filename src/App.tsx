@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import "/node_modules/flag-icons/css/flag-icons.min.css";
 import {
   BrowserRouter,
-  RouteProps,
-  useParams,
+  Route,
+  RouterProvider,
+  Routes,
+  createBrowserRouter,
+  createRoutesFromElements,
   useRoutes,
 } from "react-router-dom";
 import { Container, CssBaseline } from "@mui/material";
@@ -15,7 +17,6 @@ import "@fontsource/roboto/700.css";
 import { RootState } from "./store/store";
 import AuthWrapper from "./components/AuthWrapper";
 import Login from "./pages/SignIn";
-import MainRoute from "./pages/MainRoute";
 import {
   TranslationFC,
   TranslationWithLanguage,
@@ -26,26 +27,11 @@ import NewAdd from "./pages/NewAdd";
 import AddPost from "./components/AddPost";
 import PostDetails from "./pages/PostDetails";
 import BodyWrapper from "./components/BodyWrapper";
+import MainData from "./components/MainData";
 
 export const CurrentLanguageContext = React.createContext<TranslationFC>(
   (value) => ""
 );
-
-const App: React.FC = () => {
-  let routes = useRoutes([
-    { path: "/", element: <MainRoute /> },
-    { path: "/login", element: <Login /> },
-    { path: "/profile", element: <Profile /> },
-    { path: "/newAdd", element: <NewAdd /> },
-    {
-      path: "/post/:id",
-      element: <PostDetails />,
-    },
-
-    // ...
-  ]);
-  return routes;
-};
 
 const AppWrapper = () => {
   const language = useSelector((state: RootState) => state.language);
@@ -59,7 +45,13 @@ const AppWrapper = () => {
           <BodyWrapper>
             <CssBaseline />
             <Container style={{ marginTop: "20px" }}>
-              <App />
+              <Routes>
+                <Route path="/" element={<MainData />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/newAdd" element={<NewAdd />} />
+                <Route path="/post/:id" element={<PostDetails />} />
+              </Routes>{" "}
               <AddPost />
             </Container>
           </BodyWrapper>

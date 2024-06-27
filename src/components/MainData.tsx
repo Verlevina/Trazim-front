@@ -4,16 +4,14 @@ import { Grid } from "@mui/material";
 import { getPosts } from "../server/userAPI";
 import { Filter, Post } from "../server/types";
 import { useLocation } from "react-router-dom";
-
-const InfiniteScroll: React.FC = (props) => {
-  const location = useLocation();
+const MainData: React.FC = () => {
   const urlSearchParams = new URLSearchParams(window.location.search);
+  const [posts, setPosts] = useState<Post[]>([]);
+  const params = Object.fromEntries(urlSearchParams.entries());
+  const location = useLocation();
   useEffect(() => {
     loadMorePosts();
-  }, [window.location.search]);
-  const params = Object.fromEntries(urlSearchParams.
-    entries());
-  const [posts, setPosts] = useState<Post[]>([]);
+  }, []);
   const page = useRef<number>(0);
   const isLoading = useRef<Boolean>(false);
   const pageCount = 12;
@@ -71,4 +69,4 @@ const InfiniteScroll: React.FC = (props) => {
   );
 };
 
-export default InfiniteScroll;
+export default MainData;

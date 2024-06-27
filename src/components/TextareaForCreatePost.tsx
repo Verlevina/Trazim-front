@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { InputProps, styled, Input as BaseInput, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import { NewPost } from "../types";
 interface InputGroupProps {
   post: NewPost;

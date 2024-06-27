@@ -19,11 +19,10 @@ import {
 import { Modal } from "@mui/material";
 import { login } from "../server/userAPI";
 import { UserSinginRequest } from "../server/types";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { loginReducer } from "../store/user/user";
 import { setLanguageReducer } from "../store/language/language";
 import { LangugeArray } from "../constants/languages";
-import { RootState } from "../store/store";
 import { CurrentLanguageContext } from "../App";
 const containerStyle = {
   background: "white",
@@ -57,7 +56,7 @@ export default function SignIn() {
 
   const [errorMessage, setErrorMessage] = useState<String>("");
   const dispatch = useDispatch();
-  const language = useSelector((state: RootState) => state.language);
+  // const language = useSelector((state: RootState) => state.language);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

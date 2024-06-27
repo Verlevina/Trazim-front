@@ -6,7 +6,6 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -18,9 +17,8 @@ import {
   TranslationKeys,
 } from "../Translation/TranslationComponent";
 import { Modal } from "@mui/material";
-import { CreateUserRequest, User, UserSinginRequest } from "../server/types";
-import { useDispatch, useSelector } from "react-redux";
-
+import { CreateUserRequest } from "../server/types";
+import { useSelector } from "react-redux";
 import { LangugeArray } from "../constants/languages";
 import { RootState } from "../store/store";
 import { CurrentLanguageContext } from "../App";
@@ -41,7 +39,7 @@ export default function SignUp() {
     CurrentLanguageContext
   );
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [errorMessage] = useState<string>("");
   const [shortLogin, setShortLogin] = useState<Identification>({
     Name: "",
     Surname: "",

@@ -1,4 +1,4 @@
-import React, { Fragment, ReactNode, useEffect } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { getCurrentUser, setJWTToken } from '../server/userAPI';
 import { loginReducer } from '../store/user/user';
@@ -39,7 +39,7 @@ const AuthWrapper =  ({children}:Props) => {
         } else {
           localStorage.removeItem("token");
         }
-      }, []);
+      }, [dispatch]);
 
     return <React.Fragment>{children}</React.Fragment>
 }

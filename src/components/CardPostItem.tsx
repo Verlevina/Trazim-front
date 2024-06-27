@@ -6,7 +6,6 @@ import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import RSSUsage from "../components/ShareSocial";
@@ -21,11 +20,6 @@ interface Props {
   post: Post;
 }
 export default function CardPostItem({ post }: Props) {
-  const [expanded, setExpanded] = React.useState(false);
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
-
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardHeader

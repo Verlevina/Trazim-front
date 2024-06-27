@@ -12,7 +12,7 @@ const PostDetails = () => {
   const [post, setPost] = useState<Post | null>(null);
   useEffect(() => {
     getPostInfo(postId).then((post) => setPost(post));
-  }, [id]);
+  }, [id, postId]);
   return post === null ? (
     <Loader />
   ) : (

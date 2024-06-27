@@ -1,6 +1,4 @@
-import React, { useContext, useEffect } from 'react';
 import { Languages } from '../constants/languages';
-import { CurrentLanguageContext } from '../App';
 
 export type TranslationFC = (value: TranslationKeys) => string;
 

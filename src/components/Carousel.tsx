@@ -47,7 +47,7 @@ const PostCarousel = ({ pictures }: pictureProps) => {
         itemClass="carousel-item-padding-40-px"
       >
         {pictures.map((pic) => (
-          <img height={400} src={`${globalUrl}\\${pic}`}></img>
+          <img height={400} alt="" src={`${globalUrl}\\${pic}`}></img>
         ))}
       </Carousel>
     </div>
