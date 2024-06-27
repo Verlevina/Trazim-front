@@ -35,6 +35,7 @@ const PostCarousel = ({ pictures }: pictureProps) => {
         ssr={true} // means to render carousel on server-side.
         infinite={false}
         autoPlay={false}
+        centerMode={true}
         autoPlaySpeed={1000}
         keyBoardControl={true}
         customTransition="all .5"

@@ -31,7 +31,8 @@ export enum TranslationKeys {
     Profile,
     AddMainInfo,
     AddPhoto,
-    AddLocation
+    AddLocation,
+    Signup
 }
 
 export const  translationValues: EnumDictionary<TranslationKeys, TranslationValues> = {
@@ -139,6 +140,13 @@ export const  translationValues: EnumDictionary<TranslationKeys, TranslationValu
         [Languages.Srb]: "Локация",
         [Languages.Mne]: "Локация",
         [Languages.Bih]: "Локация",
+    },
+    [TranslationKeys.Signup]:  {
+        [Languages.Ru]: "Регистрация",
+        [Languages.En]: "Sing up",
+        [Languages.Srb]: "Sing up",
+        [Languages.Mne]: "Sing up",
+        [Languages.Bih]: "Sing up",
     },
 }
 

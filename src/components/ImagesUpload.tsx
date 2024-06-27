@@ -1,7 +1,15 @@
-import React, { useState } from "react";
-import { ImageList, ImageListItem } from "@mui/material";
+import React, { useRef, useState } from "react";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import {
+  Avatar,
+  Button,
+  IconButton,
+  ImageList,
+  ImageListItem,
+} from "@mui/material";
 import { ImageType, NewPost } from "../types";
-import { Post } from "../server/types";
+import GetAppOutlinedIcon from "@mui/icons-material/GetAppOutlined";
+import { CreateUserRequest } from "../server/types";
 
 interface InputGroupProps {
   post: NewPost;
@@ -60,7 +68,7 @@ function ImagesUpload({ post }: InputGroupProps) {
       </div>
       {selectedImages && (
         <ImageList
-          sx={{ height: 370, overflow: "auto" }}
+          sx={{ height: 70, overflow: "auto" }}
           variant="quilted"
           cols={4}
           rowHeight={121}
@@ -94,3 +102,92 @@ function ImagesUpload({ post }: InputGroupProps) {
 }
 
 export default ImagesUpload;
+
+interface InputImageGroupProps {
+  user: CreateUserRequest;
+  name: string | null;
+}
+
+export function ImageUpload({ user, name }: InputImageGroupProps) {
+  const [selectedImage, setSelectedImage] = useState<ImageType | null>(user.picture);
+  const [message, setMessage] = useState<Array<string>>([]);
+  const uploadRef = useRef<HTMLInputElement>(null);
+  const onUploadButtonClick = () => {
+    uploadRef.current?.click();
+  };
+  const selectImage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files !== null ? event.target.files[0] : null;
+    if (file !== null) {
+      const newSelectedImage = {
+        file: file,
+        fileName: file.name,
+        image: URL.createObjectURL(file),
+        row: 1,
+        column: 1,
+      };
+      setSelectedImage(newSelectedImage);
+      user.picture = newSelectedImage;
+      //setMessage([]);
+    }
+  };
+  const onClearImageClick = () => {
+    setSelectedImage(null);
+    user.picture = null;
+  };
+  return (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <Avatar
+        sx={{ width: 100, height: 100, margin: "8px" }}
+        src={selectedImage?.image}
+      >
+        {name !== null ? name : null}
+      </Avatar>
+      <input
+        type="file"
+        name="image"
+        ref={uploadRef}
+        onChange={selectImage}
+        style={{
+          visibility: "hidden",
+          padding: 0,
+          height: "1px",
+          position: "fixed",
+        }}
+      />
+      <div style={{ display: "flex", alignSelf: "stretch" }}>
+        <Button
+          variant="outlined"
+          startIcon={<GetAppOutlinedIcon />}
+          onClick={onUploadButtonClick}
+          fullWidth
+          style={{ flexGrow: 2 }}
+        >
+          Upload
+        </Button>
+        <IconButton
+          aria-label="fingerprint"
+          color="primary"
+          onClick={onClearImageClick}
+        >
+          <DeleteOutlineOutlinedIcon />
+        </IconButton>
+      </div>
+      {message.length > 0 && (
+        <div className="alert alert-secondary mt-2" role="alert">
+          <ul>
+            {message.map((item, i) => {
+              return <li key={i}>{item}</li>;
+            })}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+}

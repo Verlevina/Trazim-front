@@ -3,6 +3,7 @@ import AccountMenu from "./UserMenu";
 import { Box, Grid, Paper, styled } from "@mui/material";
 import { Link } from "react-router-dom";
 import LanguagePicker from "./LanguagesPicker";
+import { baseColor } from "../constants/colors";
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -23,7 +24,9 @@ const Header: React.FC = () => {
       <Grid container spacing={2} direction="row">
         <Grid item xs={4}>
           <H3>
-            <Link to={`/`}>Tražim</Link>
+            <Link to={`/`} style={{ color: baseColor }}>
+              Tražim
+            </Link>
           </H3>
         </Grid>
         <Grid

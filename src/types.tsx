@@ -17,3 +17,8 @@ export interface IFile {
     description: string;
     pictures: ImageType[];
   };
+
+export type User = {
+
+  
+}

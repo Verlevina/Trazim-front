@@ -9,19 +9,19 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import ShareIcon from "@mui/icons-material/Share";
+import RSSUsage from "../components/ShareSocial";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Post } from "../server/types";
 import { globalUrl } from "../server/userAPI";
 import { Link } from "react-router-dom";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import { getShortName } from "../utils/utils";
 
 interface Props {
   post: Post;
 }
-export default function CardAddItem({ post }: Props) {
+export default function CardPostItem({ post }: Props) {
   const [expanded, setExpanded] = React.useState(false);
-  debugger;
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -30,8 +30,20 @@ export default function CardAddItem({ post }: Props) {
     <Card sx={{ maxWidth: 345 }}>
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            R
+          <Avatar
+            sx={{ bgcolor: red[500] }}
+            aria-label="recipe"
+            src={
+              post.user?.pictureUrl?.length > 0
+                ? `${globalUrl}\\${post.user?.pictureUrl}`
+                : ""
+            }
+          >
+            {getShortName(
+              post?.user?.name,
+              post?.user?.surname,
+              post?.user?.login
+            )}
           </Avatar>
         }
         action={
@@ -40,7 +52,7 @@ export default function CardAddItem({ post }: Props) {
           </IconButton>
         }
         title={post.title}
-        subheader="September 14, 2016"
+        subheader={new Date(post.created).toLocaleDateString()}
       />
       <CardMedia
         component="img"
@@ -50,20 +62,16 @@ export default function CardAddItem({ post }: Props) {
             : ""
         }
         height="194"
-        alt="Paella dish"
+        alt={post.title}
       />
       <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          <div dangerouslySetInnerHTML={{ __html: post.description }}></div>
-        </Typography>
+        <div dangerouslySetInnerHTML={{ __html: post.description }}></div>
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
           <FavoriteIcon />
         </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
+        <RSSUsage url={`post/${post.id}`} />
         <Link to={`/post/${post.id}`}>
           <IconButton aria-label="detail">
             <MoreHorizIcon />

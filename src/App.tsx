@@ -1,7 +1,12 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import "/node_modules/flag-icons/css/flag-icons.min.css";
-import { BrowserRouter, RouteProps, useParams, useRoutes } from "react-router-dom";
+import {
+  BrowserRouter,
+  RouteProps,
+  useParams,
+  useRoutes,
+} from "react-router-dom";
 import { Container, CssBaseline } from "@mui/material";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
@@ -20,6 +25,7 @@ import Profile from "./pages/Profile";
 import NewAdd from "./pages/NewAdd";
 import AddPost from "./components/AddPost";
 import PostDetails from "./pages/PostDetails";
+import BodyWrapper from "./components/BodyWrapper";
 
 export const CurrentLanguageContext = React.createContext<TranslationFC>(
   (value) => ""
@@ -33,7 +39,7 @@ const App: React.FC = () => {
     { path: "/newAdd", element: <NewAdd /> },
     {
       path: "/post/:id",
-      element:  <PostDetails />
+      element: <PostDetails />,
     },
 
     // ...
@@ -50,11 +56,13 @@ const AppWrapper = () => {
       <BrowserRouter>
         <AuthWrapper>
           <Header />
-          <CssBaseline />
-          <Container style={{ margin: "20px" }}>
-            <App />
-            <AddPost />
-          </Container>
+          <BodyWrapper>
+            <CssBaseline />
+            <Container style={{ marginTop: "20px" }}>
+              <App />
+              <AddPost />
+            </Container>
+          </BodyWrapper>
         </AuthWrapper>
       </BrowserRouter>
     </CurrentLanguageContext.Provider>

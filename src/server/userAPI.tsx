@@ -1,6 +1,14 @@
 import axios from "axios";
-import { Filter, Post, Posts, User, UserSinginRequest } from "./types";
+import {
+  CreateUserRequest,
+  Filter,
+  Post,
+  Posts,
+  User,
+  UserSinginRequest,
+} from "./types";
 import { NewPost } from "../types";
+import { hidePassword } from "../utils/utils";
 export const globalUrl = "https://localhost:7025";
 
 export const url = `${globalUrl}/api/`;
@@ -11,8 +19,38 @@ export async function getCurrentUser() {
   return data;
 }
 
+export async function createUserRequest(user: CreateUserRequest) {
+  let data = new FormData();
+  user.password = hidePassword(user.password);
+  if (user.picture !== null) {
+    data.append(
+      `file-${user.picture?.fileName}`,
+      user.picture?.file,
+      user.picture?.fileName
+    );
+  }
+  data.append("name", user.name);
+  data.append("surname", user.surname);
+  data.append("telegram", user.telegram);
+  data.append("password", user.password);
+  data.append("email", user.email);
+  data.append("languageId", (user.languageId + 1).toString());
+  data.append("login", user.login);
+
+  const response = await axios.post<number>(`${url}authenticate/new`, data, {
+    headers: {
+      accept: "application/json",
+      "Accept-Language": "en-US,en;q=0.8",
+      "Content-Type": `multipart/form-data;`,
+    },
+  });
+
+  return response.data;
+}
+
 export async function login(user: UserSinginRequest) {
   try {
+    user.password = hidePassword(user.password);
     const { data, status } = await axios.post<User>(
       `${url}Authenticate/login`,
       user

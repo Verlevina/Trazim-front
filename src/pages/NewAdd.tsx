@@ -117,7 +117,6 @@ export default function CustomizedSteppers() {
   };
   const createPost = async () => {
     const id = await addPost(post);
-    debugger;
     navigate(`/post/${id}`);
     handleClose();
   };

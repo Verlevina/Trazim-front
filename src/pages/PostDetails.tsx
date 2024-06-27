@@ -4,6 +4,7 @@ import { getPostInfo } from "../server/userAPI";
 import { useParams } from "react-router-dom";
 import { Grid, Paper } from "@mui/material";
 import PostCarousel from "../components/Carousel";
+import Loader from "../components/Loader";
 
 const PostDetails = () => {
   const { id } = useParams();
@@ -13,23 +14,23 @@ const PostDetails = () => {
     getPostInfo(postId).then((post) => setPost(post));
   }, [id]);
   return post === null ? (
-    <>loader</>
+    <Loader />
   ) : (
     <Grid container spacing={2}>
-      <Grid item xs={8}>
-        <Paper>{post?.title}</Paper>
+      <Grid xs={8}>
+        <Grid item xs={4} md={12}>
+          <PostCarousel pictures={post.pictureUrls} />
+        </Grid>
+        <Grid item xs={8} md={12}>
+          <Paper>{post?.title}</Paper>
+        </Grid>
+        <Grid item xs={12}>
+          <Paper>
+            <div dangerouslySetInnerHTML={{ __html: post?.description }}></div>
+          </Paper>
+        </Grid>
       </Grid>
-      <Grid item xs={4}>
-        <Paper>
-          <div dangerouslySetInnerHTML={{ __html: post?.description }}></div>
-        </Paper>
-      </Grid>
-      <Grid item xs={12}>
-        <PostCarousel pictures={post.pictureUrls} />
-      </Grid>
-      <Grid item xs={8}>
-        <Paper>xs=8</Paper>
-      </Grid>
+      <Grid xs={4}></Grid>
     </Grid>
   );
 };

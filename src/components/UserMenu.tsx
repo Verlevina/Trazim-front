@@ -15,7 +15,7 @@ import { RootState } from "../store/store";
 import SignIn from "../pages/SignIn";
 import { Link } from "react-router-dom";
 import { logoutReducer } from "../store/user/user";
-import { deleteAuthHeader } from "../server/userAPI";
+import { deleteAuthHeader, globalUrl } from "../server/userAPI";
 import { useDispatch } from "react-redux";
 import {
   TranslationFC,
@@ -24,6 +24,8 @@ import {
 import PostAddIcon from "@mui/icons-material/PostAdd";
 import { CurrentLanguageContext } from "../App";
 import { AddPostButton } from "./AddPost";
+import SignUp from "./SignUp";
+import { getShortName } from "../utils/utils";
 
 const menuStyle = {
   overflow: "visible",
@@ -68,9 +70,13 @@ export default function AccountMenu() {
   const handleLogout = () => {
     deleteAuthHeader();
     dispatch(logoutReducer());
+    //clear 
+    localStorage.clear();
     handleClose();
   };
-
+  var src =
+    user?.pictureUrl.length > 0 ? `${globalUrl}\\${user.pictureUrl}` : "";
+  debugger;
   return user.isSignedIn ? (
     <React.Fragment>
       <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
@@ -89,11 +95,8 @@ export default function AccountMenu() {
               aria-haspopup="true"
               aria-expanded={open}
             >
-              <Avatar
-                sx={{ width: 32, height: 32 }}
-                src={user?.pictureUrl ?? user.pictureUrl}
-              >
-                {user?.login[0]}
+              <Avatar sx={{ width: 32, height: 32 }} src={src}>
+                {getShortName(user?.name, user?.surname, user?.login)}
               </Avatar>
             </IconButton>
           </Tooltip>
@@ -140,6 +143,9 @@ export default function AccountMenu() {
       </Menu>
     </React.Fragment>
   ) : (
-    <SignIn />
+    <React.Fragment>
+      <SignIn />
+      <SignUp />
+    </React.Fragment>
   );
 }

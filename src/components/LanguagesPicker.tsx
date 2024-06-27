@@ -9,7 +9,7 @@ import React from "react";
 import { LangugeArray } from "../constants/languages";
 import { useDispatch, useSelector } from "react-redux";
 import { setLanguageReducer } from "../store/language/language";
-import { deepOrange, deepPurple } from "@mui/material/colors";
+import { baseColor, secondaryBaseColor } from "../constants/colors";
 import { RootState } from "../store/store";
 const LanguagePicker: React.FC = () => {
   const dispatch = useDispatch();
@@ -47,8 +47,8 @@ const LanguagePicker: React.FC = () => {
                     height: 24,
                     bgcolor:
                       currentLanguage === language
-                        ? deepPurple[700]
-                        : deepOrange[700],
+                        ? baseColor
+                        : secondaryBaseColor,
                     fontSize: "0.65rem",
                   }}
                 >
