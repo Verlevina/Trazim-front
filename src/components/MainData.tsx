@@ -8,7 +8,6 @@ const MainData: React.FC = () => {
   const urlSearchParams = new URLSearchParams(window.location.search);
   const [posts, setPosts] = useState<Post[]>([]);
   const params = Object.fromEntries(urlSearchParams.entries());
-  const location = useLocation();
   useEffect(() => {
     loadMorePosts();
   }, []);

@@ -3,11 +3,7 @@ import { useSelector } from "react-redux";
 import {
   BrowserRouter,
   Route,
-  RouterProvider,
   Routes,
-  createBrowserRouter,
-  createRoutesFromElements,
-  useRoutes,
 } from "react-router-dom";
 import { Container, CssBaseline } from "@mui/material";
 import "@fontsource/roboto/300.css";
