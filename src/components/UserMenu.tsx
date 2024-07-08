@@ -25,7 +25,7 @@ import PostAddIcon from "@mui/icons-material/PostAdd";
 import { CurrentLanguageContext } from "../App";
 import { AddPostButton } from "./AddPost";
 import SignUp from "./SignUp";
-import { getShortName } from "../utils/utils";
+import { emptyFilter, getShortName } from "../utils/utils";
 import { Filter } from "../server/types";
 import { setFilter } from "../store/filter/filter";
 import { Button } from "@mui/material";
@@ -56,7 +56,6 @@ const menuStyle = {
 export default function AccountMenu() {
   //redux
   const user = useSelector((state: RootState) => state.user);
-  const filter = useSelector((state: RootState) => state.filter);
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -88,8 +87,8 @@ export default function AccountMenu() {
         <React.Fragment>
           <Button
             onClick={() => {
-              const newFilter = { ...filter, userId: user.id } as Filter;
-              dispatch(setFilter({ ...newFilter } as Filter));
+              const newFilter = { ...emptyFilter, userId: user.id } as Filter;
+              dispatch(setFilter(newFilter));
               let str = Object.entries(newFilter)
                 .map(([key, val]) => `${key}=${val}`)
                 .join("&");

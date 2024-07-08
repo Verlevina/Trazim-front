@@ -1,24 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Filter } from "../../server/types";
+import { emptyFilter, getFilterFromUrl } from "../../utils/utils";
 
-const initialState: Filter = {
-  id: null,
-  title: null,
-  originalLanguageId: null,
-  pictureExisting: null,
-  locationId: null,
-  isArchived: null,
-  userId: null,
-
-  // Ordering
-  orderBy: "created",
-  orderDescending: true,
-
-  // Paging
-  pageSize: 12,
-  pageNumber: 0,
-} as Filter;
-
+const initialState: Filter = getFilterFromUrl();
 const filterSlice = createSlice({
   name: "filter",
   initialState,
@@ -46,7 +30,7 @@ const filterSlice = createSlice({
       return filter;
     },
     setInitFilter: (state) => {
-      return { ...initialState };
+      return { ...emptyFilter };
     },
   },
 });
