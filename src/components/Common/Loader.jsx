@@ -1,6 +1,6 @@
 import React from "react";
 import { LineWave } from "react-loader-spinner";
-import { baseColor } from "../constants/colors";
+import { baseColor } from "../../constants/colors";
 import { Grid } from "@mui/material";
 const Loader = () => (
   <Grid container columns={{ xs: 12 }}>

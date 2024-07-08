@@ -1,5 +1,5 @@
 import React from "react";
-import { globalUrl } from "../server/userAPI";
+import { globalUrl } from "../../server/userAPI";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 

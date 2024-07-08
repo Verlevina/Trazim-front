@@ -1,10 +1,10 @@
 import React from "react";
-import AccountMenu from "./UserMenu";
+import AccountMenu from "../Layout/UserMenu";
 import { Box, Button, Grid, Paper, styled } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import LanguagePicker from "./LanguagesPicker";
+import LanguagePicker from "../Layout/LanguagesPicker";
 import { useDispatch } from "react-redux";
-import { setInitFilter } from "../store/filter/filter";
+import { setInitFilter } from "../../store/filter/filter";
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,

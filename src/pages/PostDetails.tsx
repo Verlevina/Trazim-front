@@ -3,8 +3,8 @@ import { Post } from "../server/types";
 import { getPostInfo } from "../server/userAPI";
 import { useParams } from "react-router-dom";
 import { Grid, Paper } from "@mui/material";
-import PostCarousel from "../components/Carousel";
-import Loader from "../components/Loader";
+import PostCarousel from "../components/Common/Carousel";
+import Loader from "../components/Common/Loader";
 
 const PostDetails = () => {
   const { id } = useParams();

@@ -11,23 +11,23 @@ import Tooltip from "@mui/material/Tooltip";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import { useSelector } from "react-redux";
-import { RootState } from "../store/store";
-import SignIn from "../pages/SignIn";
+import { RootState } from "../../store/store";
+import SignIn from "../../pages/SignIn";
 import { Link, useNavigate } from "react-router-dom";
-import { logoutReducer } from "../store/user/user";
-import { deleteAuthHeader, globalUrl } from "../server/userAPI";
+import { logoutReducer } from "../../store/user/user";
+import { deleteAuthHeader, globalUrl } from "../../server/userAPI";
 import { useDispatch } from "react-redux";
 import {
   TranslationFC,
   TranslationKeys,
-} from "../Translation/TranslationComponent";
+} from "../../Translation/TranslationComponent";
 import PostAddIcon from "@mui/icons-material/PostAdd";
-import { CurrentLanguageContext } from "../App";
-import { AddPostButton } from "./AddPost";
-import SignUp from "./SignUp";
-import { emptyFilter, getShortName } from "../utils/utils";
-import { Filter } from "../server/types";
-import { setFilter } from "../store/filter/filter";
+import { CurrentLanguageContext } from "../../App";
+import { AddPostButton } from "../AddPost/AddPost";
+import SignUp from "../SignUp";
+import { emptyFilter, getShortName } from "../../utils/utils";
+import { Filter } from "../../server/types";
+import { setFilter } from "../../store/filter/filter";
 import { Button } from "@mui/material";
 
 const menuStyle = {

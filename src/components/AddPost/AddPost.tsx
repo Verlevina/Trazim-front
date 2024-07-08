@@ -1,14 +1,14 @@
 import { Modal, Button, Box } from "@mui/material";
 import React from "react";
-import NewAdd from "../pages/NewAdd";
+import NewAdd from "../../pages/NewAdd";
 import {
   TranslationFC,
   TranslationKeys,
-} from "../Translation/TranslationComponent";
-import { CurrentLanguageContext } from "../App";
+} from "../../Translation/TranslationComponent";
+import { CurrentLanguageContext } from "../../App";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../store/store";
-import { toggleModal } from "../store/newPost/newPost";
+import { RootState } from "../../store/store";
+import { toggleModal } from "../../store/newPost/newPost";
 
 const style = {
   position: "absolute" as "absolute",

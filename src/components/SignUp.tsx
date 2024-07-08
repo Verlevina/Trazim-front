@@ -22,7 +22,7 @@ import { useSelector } from "react-redux";
 import { LangugeArray } from "../constants/languages";
 import { RootState } from "../store/store";
 import { CurrentLanguageContext } from "../App";
-import { ImageUpload } from "./ImagesUpload";
+import { ImageUpload } from "./Common/ImagesUpload";
 import { createUserRequest } from "../server/userAPI";
 const containerStyle = {
   background: "white",

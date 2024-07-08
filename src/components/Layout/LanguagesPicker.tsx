@@ -6,11 +6,11 @@ import {
   RadioGroup,
 } from "@mui/material";
 import React from "react";
-import { LangugeArray } from "../constants/languages";
+import { LangugeArray } from "../../constants/languages";
 import { useDispatch, useSelector } from "react-redux";
-import { setLanguageReducer } from "../store/language/language";
-import { baseColor, secondaryBaseColor } from "../constants/colors";
-import { RootState } from "../store/store";
+import { setLanguageReducer } from "../../store/language/language";
+import { baseColor, secondaryBaseColor } from "../../constants/colors";
+import { RootState } from "../../store/store";
 const LanguagePicker: React.FC = () => {
   const dispatch = useDispatch();
   const currentLanguage = useSelector((state: RootState) => state.language);

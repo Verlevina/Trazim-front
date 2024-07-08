@@ -1,9 +1,9 @@
 import React, { ReactNode, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { getCurrentUser, setJWTToken } from '../server/userAPI';
-import { loginReducer } from '../store/user/user';
-import { LangugeArray } from '../constants/languages';
-import { setLanguageReducer } from '../store/language/language';
+import { getCurrentUser, setJWTToken } from '../../server/userAPI';
+import { loginReducer } from '../../store/user/user';
+import { LangugeArray } from '../../constants/languages';
+import { setLanguageReducer } from '../../store/language/language';
 
 type Props = {
     children: ReactNode

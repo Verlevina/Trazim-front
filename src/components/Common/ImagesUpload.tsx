@@ -7,9 +7,9 @@ import {
   ImageList,
   ImageListItem,
 } from "@mui/material";
-import { ImageType, NewPost } from "../types";
+import { ImageType, NewPost } from "../../types";
 import GetAppOutlinedIcon from "@mui/icons-material/GetAppOutlined";
-import { CreateUserRequest } from "../server/types";
+import { CreateUserRequest } from "../../server/types";
 
 interface InputGroupProps {
   post: NewPost;

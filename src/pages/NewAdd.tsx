@@ -19,8 +19,8 @@ import { CurrentLanguageContext } from "../App";
 import { Button, Grid } from "@mui/material";
 import TextareaForCreatePost, {
   UnstyledInputBasic,
-} from "../components/TextareaForCreatePost";
-import ImagesUpload from "../components/ImagesUpload";
+} from "../components/AddPost/TextareaForCreatePost";
+import ImagesUpload from "../components/Common/ImagesUpload";
 import { NewPost } from "../types";
 import { addPost } from "../server/userAPI";
 import { useNavigate } from "react-router-dom";

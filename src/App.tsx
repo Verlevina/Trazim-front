@@ -7,19 +7,19 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import { RootState } from "./store/store";
-import AuthWrapper from "./components/AuthWrapper";
+import AuthWrapper from "./components/Common/AuthWrapper";
 import Login from "./pages/SignIn";
 import {
   TranslationFC,
   TranslationWithLanguage,
 } from "./Translation/TranslationComponent";
-import Header from "./components/Header";
+import Header from "./components/Common/Header";
 import Profile from "./pages/Profile";
 import NewAdd from "./pages/NewAdd";
-import AddPost from "./components/AddPost";
+import AddPost from "./components/AddPost/AddPost";
 import PostDetails from "./pages/PostDetails";
-import BodyWrapper from "./components/BodyWrapper";
-import MainData from "./components/MainData";
+import BodyWrapper from "./components/Layout/BodyWrapper";
+import MainData from "./components/MainData/MainData";
 
 export const CurrentLanguageContext = React.createContext<TranslationFC>(
   (value) => ""

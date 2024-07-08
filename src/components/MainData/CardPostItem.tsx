@@ -8,13 +8,13 @@ import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import { red } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import RSSUsage from "../components/ShareSocial";
+import RSSUsage from "./ShareSocial";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { Post } from "../server/types";
-import { globalUrl } from "../server/userAPI";
+import { Post } from "../../server/types";
+import { globalUrl } from "../../server/userAPI";
 import { Link } from "react-router-dom";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import { getShortName } from "../utils/utils";
+import { getShortName } from "../../utils/utils";
 
 interface Props {
   post: Post;
