@@ -13,7 +13,7 @@ import Logout from "@mui/icons-material/Logout";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import SignIn from "../pages/SignIn";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { logoutReducer } from "../store/user/user";
 import { deleteAuthHeader, globalUrl } from "../server/userAPI";
 import { useDispatch } from "react-redux";
@@ -26,6 +26,9 @@ import { CurrentLanguageContext } from "../App";
 import { AddPostButton } from "./AddPost";
 import SignUp from "./SignUp";
 import { getShortName } from "../utils/utils";
+import { Filter } from "../server/types";
+import { setFilter } from "../store/filter/filter";
+import { Button } from "@mui/material";
 
 const menuStyle = {
   overflow: "visible",
@@ -53,6 +56,9 @@ const menuStyle = {
 export default function AccountMenu() {
   //redux
   const user = useSelector((state: RootState) => state.user);
+  const filter = useSelector((state: RootState) => state.filter);
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
   //context for translation
   const translationContext: TranslationFC = React.useContext(
@@ -70,22 +76,30 @@ export default function AccountMenu() {
   const handleLogout = () => {
     deleteAuthHeader();
     dispatch(logoutReducer());
-    //clear 
+    //clear
     localStorage.clear();
     handleClose();
   };
   var src =
     user?.pictureUrl.length > 0 ? `${globalUrl}\\${user.pictureUrl}` : "";
-  debugger;
   return user.isSignedIn ? (
     <React.Fragment>
       <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
         <React.Fragment>
-          <Typography sx={{ minWidth: 100 }}>
-            <Link to={`/?userID=${user.id}`}>
+          <Button
+            onClick={() => {
+              const newFilter = { ...filter, userId: user.id } as Filter;
+              dispatch(setFilter({ ...newFilter } as Filter));
+              let str = Object.entries(newFilter)
+                .map(([key, val]) => `${key}=${val}`)
+                .join("&");
+              navigate(`/list?${str}`);
+            }}
+          >
+            <Typography sx={{ minWidth: 100 }}>
               {translationContext(TranslationKeys.MyPosts)}
-            </Link>
-          </Typography>
+            </Typography>
+          </Button>
           <Tooltip title="Account settings">
             <IconButton
               onClick={handleClick}

@@ -1,9 +1,10 @@
 import React from "react";
 import AccountMenu from "./UserMenu";
-import { Box, Grid, Paper, styled } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Box, Button, Grid, Paper, styled } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import LanguagePicker from "./LanguagesPicker";
-import { baseColor } from "../constants/colors";
+import { useDispatch } from "react-redux";
+import { setInitFilter } from "../store/filter/filter";
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -19,15 +20,20 @@ const H3 = styled("div")(({ theme }) => ({
 }));
 
 const Header: React.FC = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   return (
     <Item>
       <Grid container spacing={2} direction="row">
         <Grid item xs={4}>
-          <H3>
-            <Link to={`/`} style={{ color: baseColor }}>
-              Tražim
-            </Link>
-          </H3>
+          <Button
+            onClick={() => {
+              dispatch(setInitFilter());
+              navigate(`/list`);
+            }}
+          >
+            Tražim
+          </Button>
         </Grid>
         <Grid
           sx={{

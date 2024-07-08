@@ -1,10 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import {
-  BrowserRouter,
-  Route,
-  Routes,
-} from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Container, CssBaseline } from "@mui/material";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
@@ -33,6 +29,7 @@ const AppWrapper = () => {
   const language = useSelector((state: RootState) => state.language);
   useEffect(() => {}, [language]);
   const translationWithLanguage = TranslationWithLanguage(language);
+
   return (
     <CurrentLanguageContext.Provider value={translationWithLanguage}>
       <BrowserRouter>
@@ -42,7 +39,7 @@ const AppWrapper = () => {
             <CssBaseline />
             <Container style={{ marginTop: "20px" }}>
               <Routes>
-                <Route path="/" element={<MainData />} />
+                <Route path="/list/*" element={<MainData />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/newAdd" element={<NewAdd />} />

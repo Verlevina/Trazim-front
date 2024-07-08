@@ -13,9 +13,15 @@ const PostDetails = () => {
   useEffect(() => {
     getPostInfo(postId).then((post) => setPost(post));
   }, [id, postId]);
-  return post === null ? (
-    <Loader />
-  ) : (
+  return post === null ? <Loader /> : <PostDetailaView post={post} />;
+};
+
+interface postDetailsPropsInterface {
+  post: Post;
+}
+
+const PostDetailaView = ({ post }: postDetailsPropsInterface) => {
+  return (
     <Grid container spacing={2}>
       <Grid xs={8}>
         <Grid item xs={4} md={12}>
@@ -34,4 +40,5 @@ const PostDetails = () => {
     </Grid>
   );
 };
+
 export default PostDetails;

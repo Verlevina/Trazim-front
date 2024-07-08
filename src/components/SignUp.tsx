@@ -56,7 +56,7 @@ export default function SignUp() {
   } as CreateUserRequest);
   const user = userRef.current;
   const language = useSelector((state: RootState) => state.language);
-  const [currentLanguage, setCurrentLanguage] = useState<String>(language);
+  const [currentLanguage, setCurrentLanguage] = useState<string>(language);
   const createUser = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     await createUserRequest(user);
@@ -67,7 +67,7 @@ export default function SignUp() {
     setIsOpen(!isOpen);
   };
 
-  const handleChange = (event: SelectChangeEvent<String>) => {
+  const handleChange = (event: SelectChangeEvent<string>) => {
     setCurrentLanguage(event.target.value);
   };
 
