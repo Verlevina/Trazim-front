@@ -18,12 +18,14 @@ import {
 } from "../Translation/TranslationComponent";
 import { Modal } from "@mui/material";
 import { CreateUserRequest } from "../server/types";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { LangugeArray } from "../constants/languages";
 import { RootState } from "../store/store";
 import { CurrentLanguageContext } from "../App";
 import { ImageUpload } from "./Common/ImagesUpload";
 import { createUserRequest } from "../server/userAPI";
+import { FamilyRestroomOutlined } from "@mui/icons-material";
+import { toggleSignUPModal } from "../store/signup";
 const containerStyle = {
   background: "white",
   marginTop: "10px",
@@ -38,7 +40,9 @@ export default function SignUp() {
   const translationContext: TranslationFC = React.useContext(
     CurrentLanguageContext
   );
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const dispatch = useDispatch();
+  const isOpen = useSelector((state: RootState) => state.singUp);
+  const setIsOpen = (value:boolean)=>dispatch(toggleSignUPModal(value));
   const [errorMessage] = useState<string>("");
   const [shortLogin, setShortLogin] = useState<Identification>({
     Name: "",

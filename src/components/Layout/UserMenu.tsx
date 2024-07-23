@@ -79,8 +79,7 @@ export default function AccountMenu() {
     localStorage.clear();
     handleClose();
   };
-  var src =
-    user?.pictureUrl.length > 0 ? `${globalUrl}\\${user.pictureUrl}` : "";
+  var src = user?.pictureUrl != null ? `${globalUrl}\\${user.pictureUrl}` : "";
   return user.isSignedIn ? (
     <React.Fragment>
       <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>

@@ -5,18 +5,14 @@ import { useNavigate } from "react-router-dom";
 import LanguagePicker from "../Layout/LanguagesPicker";
 import { useDispatch } from "react-redux";
 import { setInitFilter } from "../../store/filter/filter";
+import { HeaderHeight } from "../../constants/common";
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
   padding: theme.spacing(1),
   textAlign: "center",
   color: theme.palette.text.secondary,
-}));
-
-const H3 = styled("div")(({ theme }) => ({
-  ...theme.typography.h3,
-  backgroundColor: theme.palette.background.paper,
-  padding: theme.spacing(1),
+  height: HeaderHeight,
 }));
 
 const Header: React.FC = () => {

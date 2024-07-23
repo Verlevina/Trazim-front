@@ -15,13 +15,15 @@ import { globalUrl } from "../../server/userAPI";
 import { Link } from "react-router-dom";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { getShortName } from "../../utils/utils";
+import noImage from "../../images/no-image-blind.jpg";
 
+const cardWith = 345;
 interface Props {
   post: Post;
 }
 export default function CardPostItem({ post }: Props) {
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ width: cardWith }}>
       <CardHeader
         avatar={
           <Avatar
@@ -53,7 +55,7 @@ export default function CardPostItem({ post }: Props) {
         src={
           post?.pictureUrls?.length > 0
             ? `${globalUrl}\\${post?.pictureUrls[0]}`
-            : ""
+            : noImage
         }
         height="194"
         alt={post.title}

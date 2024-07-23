@@ -36,7 +36,6 @@ export const getFilterFromUrl = () => {
     const urlSearchParams = new URLSearchParams(window.location.search);
     const params1 = urlSearchParams.entries();
     const params = Object.fromEntries(params1);
-    debugger;
     const initFilter: Filter = {
       id: params?.id !== undefined ? JSON.parse(params?.id) : null,
       title: params?.title !== undefined ? JSON.parse(params?.title) : null,

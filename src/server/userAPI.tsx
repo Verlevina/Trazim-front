@@ -6,6 +6,7 @@ import {
   Posts,
   User,
   UserSinginRequest,
+  Comment,
 } from "./types";
 import { NewPost } from "../types";
 import { hidePassword } from "../utils/utils";
@@ -107,5 +108,12 @@ export async function addPost(post: NewPost) {
 
 export async function getPostInfo(id: number) {
   const responce = await axios.get<Post>(`${url}post\\${id}`);
+  return responce.data;
+}
+
+export async function getComments(postId: Number) {
+  const responce = await axios.get<Comment[]>(
+    `${url}chat/search?postId=${postId}`
+  );
   return responce.data;
 }

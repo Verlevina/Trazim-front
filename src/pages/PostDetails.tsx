@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { Grid, Paper } from "@mui/material";
 import PostCarousel from "../components/Common/Carousel";
 import Loader from "../components/Common/Loader";
+import Comments from "../components/Comments/CommentsLayout";
 
 const PostDetails = () => {
   const { id } = useParams();
@@ -34,6 +35,9 @@ const PostDetailaView = ({ post }: postDetailsPropsInterface) => {
           <Paper>
             <div dangerouslySetInnerHTML={{ __html: post?.description }}></div>
           </Paper>
+        </Grid>
+        <Grid item xs={12}>
+          <Comments postId={post.id}/>
         </Grid>
       </Grid>
       <Grid xs={4}></Grid>

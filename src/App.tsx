@@ -34,8 +34,8 @@ const AppWrapper = () => {
     <CurrentLanguageContext.Provider value={translationWithLanguage}>
       <BrowserRouter>
         <AuthWrapper>
-          <Header />
           <BodyWrapper>
+            <Header />
             <CssBaseline />
             <Container style={{ marginTop: "20px" }}>
               <Routes>

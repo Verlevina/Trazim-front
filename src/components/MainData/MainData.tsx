@@ -3,7 +3,6 @@ import { getPosts } from "../../server/userAPI";
 import { Post } from "../../server/types";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
-import SideFilterPanel from "./SideFilterPanel";
 import PostsDrawer from "./PostsDrawer";
 
 const MainData: React.FC = () => {
@@ -24,12 +23,6 @@ const MainData: React.FC = () => {
       });
   };
 
-  return (
-    <>
-      <SideFilterPanel>
-        <PostsDrawer posts={posts} isLoading={isLoading} />
-      </SideFilterPanel>
-    </>
-  );
+  return <PostsDrawer posts={posts} isLoading={isLoading} />;
 };
 export default MainData;

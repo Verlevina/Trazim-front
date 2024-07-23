@@ -1,20 +1,16 @@
 import React, { useState } from "react";
 import { styled } from "@mui/material/styles";
-import {
-  Divider,
-  Drawer,
-  IconButton,
-  List,
-  ListItem,
-  ListItemButton,
-} from "@mui/material";
-import { Menu, ChevronLeft } from "@mui/icons-material";
-
+import { Divider, Drawer, IconButton } from "@mui/material";
+import { ChevronLeft } from "@mui/icons-material";
+import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
+import FilterComponent from "./FilterComponent";
+import { HeaderHeight, LeftPannelWidth } from "../../constants/common";
+const panelWidth = LeftPannelWidth;
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
   open?: boolean;
 }>(({ theme, open }) => ({
   flexGrow: 1,
-  padding: theme.spacing(3),
+  padding: 0,
   transition: theme.transitions.create("margin", {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -25,7 +21,8 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
-    marginLeft: `${150}px`,
+    marginLeft: `${panelWidth}px`,
+    top: HeaderHeight,
   }),
 }));
 
@@ -60,14 +57,14 @@ const SideFilterPanel = ({ children }: SidePanelDrawerProps) => {
           ...(isOpen && { display: "none" }),
         }}
       >
-        <Menu />
+        <FilterAltOutlinedIcon />
       </IconButton>
       <Drawer
         sx={{
-          width: 150,
+          width: panelWidth,
           flexShrink: 0,
           "& .MuiDrawer-paper": {
-            width: 150,
+            width: panelWidth,
             boxSizing: "border-box",
           },
         }}
@@ -81,17 +78,7 @@ const SideFilterPanel = ({ children }: SidePanelDrawerProps) => {
           </IconButton>
         </div>
         <Divider />
-        <List>
-          <ListItem disablePadding>
-            <ListItemButton>button</ListItemButton>
-          </ListItem>
-        </List>
-        <Divider />
-        <List>
-          <ListItem disablePadding>
-            <ListItemButton>button2</ListItemButton>
-          </ListItem>
-        </List>
+        <FilterComponent />
       </Drawer>
       <Main open={isOpen}>{children}</Main>
     </>
