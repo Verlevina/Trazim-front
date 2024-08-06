@@ -1,8 +1,8 @@
 import React from "react";
-import AccountMenu from "../Layout/UserMenu";
+import AccountMenu from "./UserMenu";
 import { Box, Button, Grid, Paper, styled } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import LanguagePicker from "../Layout/LanguagesPicker";
+import LanguagePicker from "./LanguagesPicker";
 import { useDispatch } from "react-redux";
 import { setInitFilter } from "../../store/filter/filter";
 import { HeaderHeight } from "../../constants/common";

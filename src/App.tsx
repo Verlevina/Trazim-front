@@ -13,7 +13,7 @@ import {
   TranslationFC,
   TranslationWithLanguage,
 } from "./Translation/TranslationComponent";
-import Header from "./components/Common/Header";
+import Header from "./components/Layout/Header";
 import Profile from "./pages/Profile";
 import NewAdd from "./pages/NewAdd";
 import AddPost from "./components/AddPost/AddPost";

@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Post } from "../server/types";
 import { getPostInfo } from "../server/userAPI";
 import { useParams } from "react-router-dom";
-import { Grid, Paper } from "@mui/material";
+import { Grid } from "@mui/material";
 import PostCarousel from "../components/Common/Carousel";
 import Loader from "../components/Common/Loader";
-import Comments from "../components/Comments/CommentsLayout";
+import PostInfo from "../components/Post/PostInfo";
+import { CommentsLayout } from "../components/Comments/CommentsLayout";
 
 const PostDetails = () => {
   const { id } = useParams();
@@ -23,24 +24,19 @@ interface postDetailsPropsInterface {
 
 const PostDetailaView = ({ post }: postDetailsPropsInterface) => {
   return (
-    <Grid container spacing={2}>
-      <Grid xs={8}>
-        <Grid item xs={4} md={12}>
+    <Grid container>
+      <Grid xs={12} md={8}>
+        <Grid item md={12}>
           <PostCarousel pictures={post.pictureUrls} />
         </Grid>
-        <Grid item xs={8} md={12}>
-          <Paper>{post?.title}</Paper>
+        <Grid item md={12} padding="10px">
+          <PostInfo post={post} />
         </Grid>
-        <Grid item xs={12}>
-          <Paper>
-            <div dangerouslySetInnerHTML={{ __html: post?.description }}></div>
-          </Paper>
-        </Grid>
-        <Grid item xs={12}>
-          <Comments postId={post.id}/>
-        </Grid>
+        <Grid item xs={12}></Grid>
       </Grid>
-      <Grid xs={4}></Grid>
+      <Grid xs={12} md={4}>
+        <CommentsLayout postId={post.id} commentId={null} />
+      </Grid>
     </Grid>
   );
 };

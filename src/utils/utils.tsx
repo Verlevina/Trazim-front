@@ -8,6 +8,13 @@ export const getShortName = (name: string, surname: string, login: string) =>
     ? login[0]
     : "NA";
 
+export const getName = (name: string, surname: string, login: string) =>
+  name?.length > 0
+    ? `${name} ${surname.length > 0 ? surname : ""}`
+    : login?.length > 0
+    ? login
+    : "NA";
+
 export const hidePassword = (val: string) => {
   var hashObj = new jsSHA("SHA-512", "TEXT", { numRounds: 1 });
   hashObj.update(val);

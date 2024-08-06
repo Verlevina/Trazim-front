@@ -25,10 +25,11 @@ import PostAddIcon from "@mui/icons-material/PostAdd";
 import { CurrentLanguageContext } from "../../App";
 import { AddPostButton } from "../AddPost/AddPost";
 import SignUp from "../SignUp";
-import { emptyFilter, getShortName } from "../../utils/utils";
+import { emptyFilter } from "../../utils/utils";
 import { Filter } from "../../server/types";
 import { setFilter } from "../../store/filter/filter";
 import { Button } from "@mui/material";
+import { UserRoundedAvatar } from "../Common/UserAvatar";
 
 const menuStyle = {
   overflow: "visible",
@@ -107,9 +108,14 @@ export default function AccountMenu() {
               aria-haspopup="true"
               aria-expanded={open}
             >
-              <Avatar sx={{ width: 32, height: 32 }} src={src}>
-                {getShortName(user?.name, user?.surname, user?.login)}
-              </Avatar>
+              <UserRoundedAvatar
+                login={user?.login}
+                name={user?.name}
+                surname={user?.surname}
+                url={src}
+                width={36}
+                height={36}
+              />
             </IconButton>
           </Tooltip>
         </React.Fragment>

@@ -111,9 +111,23 @@ export async function getPostInfo(id: number) {
   return responce.data;
 }
 
-export async function getComments(postId: Number) {
+export async function getComments(postId: number, commentId: number | null) {
+  debugger;
   const responce = await axios.get<Comment[]>(
-    `${url}chat/search?postId=${postId}`
+    `${url}chat/search?postId=${postId}&commentId=${commentId}`
   );
+  return responce.data;
+}
+
+export async function addMessage(
+  message: string,
+  parentId: number | null,
+  postId: number
+) {
+  const responce = await axios.post<number>(`${url}chat/new`, {
+    value: message,
+    parentCommentId: parentId,
+    postId: postId,
+  });
   return responce.data;
 }

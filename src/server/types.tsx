@@ -73,14 +73,19 @@ export type UserSinginRequest = {
 };
 
 export type Comment = {
-  id: Number;
-  userId: Number;
-  fromUserId: Number;
-  postId: Number;
+  id: number;
+  userId: number;
+  fromUserId: number;
+  postId: number;
   isRead: Boolean;
   isPrivate: Boolean;
   created: Date;
-  parentCommentId: Number | null;
+  parentCommentId: number | null;
   value: String;
-  valueTranslationId: Number | null;
+  valueTranslationId: number | null;
+  childrenCount: number;
+  login: string;
+  name: string;
+  pictureUrl: string;
+  surname: string;
 };
