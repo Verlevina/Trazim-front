@@ -12,7 +12,6 @@ interface CommentProps {
 const CommentComponent = ({ comment }: CommentProps) => {
   const [showAddComment, setShowAddComment] = useState(false);
   const [showAnswers, setShowAnswers] = useState(false);
-  debugger;
   return (
     <Paper
       sx={{
@@ -51,7 +50,7 @@ const CommentComponent = ({ comment }: CommentProps) => {
           </Grid>
         </Grid>
         <Grid item xs={12} sx={{ paddingBottom: "16px" }}>
-          {comment.childrenCount == 0 ? (
+          {comment.childrenCount === 0 ? (
             <Button
               onClick={() => {
                 //TODO:

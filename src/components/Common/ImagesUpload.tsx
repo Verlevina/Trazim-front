@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { ImageType, NewPost } from "../../types";
 import GetAppOutlinedIcon from "@mui/icons-material/GetAppOutlined";
-import { CreateUserRequest } from "../../server/types";
+import { globalUrl } from "../../server/userAPI";
 
 interface InputGroupProps {
   post: NewPost;
@@ -104,12 +104,18 @@ function ImagesUpload({ post }: InputGroupProps) {
 export default ImagesUpload;
 
 interface InputImageGroupProps {
-  user: CreateUserRequest;
+  setUserPicture: (picture: ImageType | null) => void;
   name: string | null;
+  pictureUrl?: string | null;
 }
 
-export function ImageUpload({ user, name }: InputImageGroupProps) {
-  const [selectedImage, setSelectedImage] = useState<ImageType | null>(user.picture);
+export function ImageUpload({
+  setUserPicture,
+  name,
+  pictureUrl,
+}: InputImageGroupProps) {
+  debugger;
+  const [selectedImage, setSelectedImage] = useState<ImageType | null>(null);
   const [message] = useState<Array<string>>([]);
   const uploadRef = useRef<HTMLInputElement>(null);
   const onUploadButtonClick = () => {
@@ -126,13 +132,13 @@ export function ImageUpload({ user, name }: InputImageGroupProps) {
         column: 1,
       };
       setSelectedImage(newSelectedImage);
-      user.picture = newSelectedImage;
+      setUserPicture(newSelectedImage);
       //setMessage([]);
     }
   };
   const onClearImageClick = () => {
     setSelectedImage(null);
-    user.picture = null;
+    setUserPicture(null);
   };
   return (
     <div
@@ -145,7 +151,11 @@ export function ImageUpload({ user, name }: InputImageGroupProps) {
     >
       <Avatar
         sx={{ width: 100, height: 100, margin: "8px" }}
-        src={selectedImage?.image}
+        src={
+          selectedImage?.image
+            ? `${selectedImage.image}`
+            : `${globalUrl}\\${pictureUrl}`
+        }
       >
         {name !== null ? name : null}
       </Avatar>

@@ -17,7 +17,6 @@ export const CommentsLayout = ({ postId, commentId }: CommentsProps) => {
   return (
     <Grid
       container
-      xs={12}
       gap={2}
       sx={{ height: "100vh", overflowY: "auto", overflowX: "hidden" }}
     >
@@ -50,18 +49,17 @@ const CommentsDrawer = ({ comments }: CommentsDrawerProps) => {
   return (
     <>
       {comments === null || comments.comments.length === 0 ? (
-        <Grid container xs={12}>
+        <Grid container>
           List is empty
         </Grid>
       ) : (
         <Grid
           container
-          xs={12}
           gap={1}
           sx={{ marginLeft: "5px", borderLeft: "1px solid #ccc" }}
         >
           {comments?.comments.map((comment) => (
-            <Grid item xs={12}>
+            <Grid item xs={12} key={comment.id}>
               <CommentComponent comment={comment} />
             </Grid>
           ))}

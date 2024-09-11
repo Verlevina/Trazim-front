@@ -46,8 +46,8 @@ const PostCarousel = ({ pictures }: pictureProps) => {
         dotListClass="custom-dot-list-style"
         itemClass="carousel-item-padding-40-px"
       >
-        {pictures.map((pic) => (
-          <img height={400} alt="" src={`${globalUrl}\\${pic}`}></img>
+        {pictures.map((pic, i) => (
+          <img key={`image-carousel-${i}`} height={400} alt="" src={`${globalUrl}\\${pic}`}></img>
         ))}
       </Carousel>
     </div>

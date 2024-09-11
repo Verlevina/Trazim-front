@@ -68,7 +68,7 @@ const FilterDrawer = ({ filter, updateFilter }: FilterDrawerProps) => {
               setLocalFilter({ ...localFilter, title: event.target.value })
             }
             variant="outlined"
-            value={localFilter.title}
+            value={localFilter.title ?? ""}
           />
         </Grid>
         <Grid item>

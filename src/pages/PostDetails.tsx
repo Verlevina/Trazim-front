@@ -25,16 +25,19 @@ interface postDetailsPropsInterface {
 const PostDetailaView = ({ post }: postDetailsPropsInterface) => {
   return (
     <Grid container>
-      <Grid xs={12} md={8}>
-        <Grid item md={12}>
-          <PostCarousel pictures={post.pictureUrls} />
+      <Grid item xs={12} md={8}>
+        <Grid container>
+          <Grid item md={12}>
+            <PostCarousel pictures={post.pictureUrls} />
+          </Grid>
+          <Grid item md={12} padding="10px">
+            <PostInfo post={post} />
+          </Grid>
+          <Grid item xs={12}></Grid>
         </Grid>
-        <Grid item md={12} padding="10px">
-          <PostInfo post={post} />
-        </Grid>
-        <Grid item xs={12}></Grid>
       </Grid>
-      <Grid xs={12} md={4}>
+
+      <Grid item xs={4} md={4}>
         <CommentsLayout postId={post.id} commentId={null} />
       </Grid>
     </Grid>

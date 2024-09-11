@@ -24,7 +24,7 @@ import {
 import PostAddIcon from "@mui/icons-material/PostAdd";
 import { CurrentLanguageContext } from "../../App";
 import { AddPostButton } from "../AddPost/AddPost";
-import SignUp from "../SignUp";
+import SignUpModal from "../SignUpModal";
 import { emptyFilter } from "../../utils/utils";
 import { Filter } from "../../server/types";
 import { setFilter } from "../../store/filter/filter";
@@ -163,7 +163,7 @@ export default function AccountMenu() {
   ) : (
     <React.Fragment>
       <SignIn />
-      <SignUp />
+      <SignUpModal />
     </React.Fragment>
   );
 }

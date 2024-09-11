@@ -1,3 +1,4 @@
+import { subscribeTypes } from "../constants/subscribeTypes";
 import { ImageType } from "../types";
 
 export type User = {
@@ -5,13 +6,14 @@ export type User = {
   name: string;
   token: string;
   email: string;
-  languageId: string;
+  languageId: number;
   locationId: number;
   login: string;
   pictureUrl: string;
   surname: string;
   telegram: string;
   userRating: number;
+  userSubscribes: subscribeTypes[]
 };
 
 export type UserSlim = {
@@ -22,15 +24,18 @@ export type UserSlim = {
 };
 
 export type CreateUserRequest = {
+  id: number;
   name: string;
   email: string;
   languageId: number;
   locationId: number;
   login: string;
   picture: ImageType | null;
+  pictureUrl: string;
   surname: string;
   telegram: string;
   password: string;
+  subscribe: subscribeTypes[]
 };
 
 export type Post = {

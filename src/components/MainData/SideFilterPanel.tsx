@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+
 import { styled } from "@mui/material/styles";
 import { Divider, Drawer, IconButton } from "@mui/material";
 import { ChevronLeft } from "@mui/icons-material";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
+
 import FilterComponent from "./FilterComponent";
 import { HeaderHeight, LeftPannelWidth } from "../../constants/common";
+
 const panelWidth = LeftPannelWidth;
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
   open?: boolean;

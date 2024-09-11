@@ -32,12 +32,28 @@ export enum TranslationKeys {
   AddLocation,
   Signup,
   Title,
+  Update,
+  Subscribe,
 }
 
 export const translationValues: EnumDictionary<
   TranslationKeys,
   TranslationValues
 > = {
+  [TranslationKeys.Subscribe]: {
+    [Languages.Ru]: "Подписки",
+    [Languages.En]: "Subscribe",
+    [Languages.Srb]: "Subscribe",
+    [Languages.Mne]: "Subscribe",
+    [Languages.Bih]: "Subscribe",
+  },
+  [TranslationKeys.Update]: {
+    [Languages.Ru]: "Обновить",
+    [Languages.En]: "Update",
+    [Languages.Srb]: "Update",
+    [Languages.Mne]: "Update",
+    [Languages.Bih]: "Update",
+  },
   [TranslationKeys.MyPosts]: {
     [Languages.Ru]: "Мои объявления",
     [Languages.En]: "My posts",

@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { subscribeTypes } from "../../constants/subscribeTypes";
 
 export interface UserState {
   id: number;
@@ -13,6 +14,7 @@ export interface UserState {
   telegram: string;
   userRating: number;
   isSignedIn: boolean;
+  subscribe: subscribeTypes[];
 }
 
 const initialState: UserState = {
@@ -28,6 +30,7 @@ const initialState: UserState = {
   surname: "",
   telegram: "",
   userRating: 0,
+  subscribe: [],
 };
 
 const userSlice = createSlice({
@@ -37,6 +40,7 @@ const userSlice = createSlice({
     loginReducer: (state, action) => {
       state = action.payload;
       state.isSignedIn = true;
+      state.subscribe = state.subscribe ?? [];
       return { ...state };
     },
     logoutReducer: (state) => {

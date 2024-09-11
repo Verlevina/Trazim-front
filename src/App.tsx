@@ -20,6 +20,7 @@ import AddPost from "./components/AddPost/AddPost";
 import PostDetails from "./pages/PostDetails";
 import BodyWrapper from "./components/Layout/BodyWrapper";
 import MainData from "./components/MainData/MainData";
+import { WebSocketWrapper } from "./components/Comments/WebSocketWrapper";
 
 export const CurrentLanguageContext = React.createContext<TranslationFC>(
   (value) => ""
@@ -34,20 +35,22 @@ const AppWrapper = () => {
     <CurrentLanguageContext.Provider value={translationWithLanguage}>
       <BrowserRouter>
         <AuthWrapper>
-          <BodyWrapper>
-            <Header />
-            <CssBaseline />
-            <Container style={{ marginTop: "20px" }}>
-              <Routes>
-                <Route path="/list/*" element={<MainData />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="/newAdd" element={<NewAdd />} />
-                <Route path="/post/:id" element={<PostDetails />} />
-              </Routes>{" "}
-              <AddPost />
-            </Container>
-          </BodyWrapper>
+          <WebSocketWrapper>
+            <BodyWrapper>
+              <Header />
+              <CssBaseline />
+              <Container style={{ marginTop: "20px" }}>
+                <Routes>
+                  <Route path="/list/*" element={<MainData />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/profile" element={<Profile />} />
+                  <Route path="/newAdd" element={<NewAdd />} />
+                  <Route path="/post/:id" element={<PostDetails />} />
+                </Routes>{" "}
+                <AddPost />
+              </Container>
+            </BodyWrapper>
+          </WebSocketWrapper>
         </AuthWrapper>
       </BrowserRouter>
     </CurrentLanguageContext.Provider>
